@@ -47,6 +47,7 @@ dependencies {
 	implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.5.0")
 	implementation("com.linecorp.kotlin-jdsl:jpql-render:3.5.0")
 	implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.5.0")
+	implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")

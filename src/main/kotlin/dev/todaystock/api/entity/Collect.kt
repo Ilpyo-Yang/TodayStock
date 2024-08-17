@@ -1,20 +1,21 @@
 package dev.todaystock.api.entity
 
-import dev.todaystock.api.util.InfoType
 import jakarta.persistence.*
 import lombok.AllArgsConstructor
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.util.*
 
 @Entity
-@Table(name = "collect")
+@EntityListeners(AuditingEntityListener::class)
+@Table(name="collect")
 @AllArgsConstructor
 class Collect(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    var uuid: UUID,
+    var uuid: UUID?,
     var userUuid: UUID,
-    var type: InfoType,
-    var relatedInfoUuid: String,
+    var type: String,
+    var relatedInfoUuid: UUID,
     var summary: String
 ): BaseEntity() {
 
