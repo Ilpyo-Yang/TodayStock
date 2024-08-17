@@ -1,7 +1,7 @@
 package dev.todaystock.api.dto.collect
 
 import dev.todaystock.api.entity.Collect
-import dev.todaystock.api.entity.InfoType
+import dev.todaystock.api.entity.type.InfoType
 import java.util.*
 
 class CollectRequest(

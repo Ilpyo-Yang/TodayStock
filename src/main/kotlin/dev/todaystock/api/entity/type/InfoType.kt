@@ -1,4 +1,4 @@
-package dev.todaystock.api.entity
+package dev.todaystock.api.entity.type
 
 enum class InfoType{
     Company,

@@ -4,7 +4,7 @@ import dev.todaystock.api.dto.collect.CollectRequest
 import dev.todaystock.api.dto.collect.CollectResponse
 import dev.todaystock.api.entity.Collect
 import dev.todaystock.api.repository.CollectRepository
-import dev.todaystock.api.entity.InfoType
+import dev.todaystock.api.entity.type.InfoType
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp

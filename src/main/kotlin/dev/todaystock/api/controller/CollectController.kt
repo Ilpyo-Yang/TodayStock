@@ -2,7 +2,7 @@ package dev.todaystock.api.controller
 
 import dev.todaystock.api.dto.ApiResponse
 import dev.todaystock.api.dto.collect.CollectRequest
-import dev.todaystock.api.entity.InfoType
+import dev.todaystock.api.entity.type.InfoType
 import dev.todaystock.api.service.CollectService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
