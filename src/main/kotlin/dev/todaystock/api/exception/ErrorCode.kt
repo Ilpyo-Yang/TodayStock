@@ -3,9 +3,10 @@ package dev.todaystock.api.exception
 import org.springframework.http.HttpStatus
 
 enum class ErrorCode(
-    val status: Int,
+    val code: String,
     val message: String,
     val httpStatus: HttpStatus,
 ) {
-    CollectNotFound(200, "Collection이 없습니다.", HttpStatus.NOT_FOUND)
+    NotFound("E404", "조회한 내용이 없습니다.", HttpStatus.NOT_FOUND),
+    NotDeleted("E409", "삭제되지 않았습니다.", HttpStatus.CONFLICT)
 }

@@ -8,4 +8,5 @@ import java.util.*
 
 @Repository
 interface ThemeRepository: JpaRepository<Theme, UUID>, KotlinJdslJpqlExecutor {
+    fun findByNameLike(name: String): Theme?
 }

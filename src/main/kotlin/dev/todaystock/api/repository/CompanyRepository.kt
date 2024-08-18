@@ -8,4 +8,5 @@ import java.util.*
 
 @Repository
 interface CompanyRepository: JpaRepository<Company, UUID>, KotlinJdslJpqlExecutor {
+    fun findByNameLike(typeName: String): Company?
 }

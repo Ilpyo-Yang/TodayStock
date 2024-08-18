@@ -21,7 +21,7 @@ class CompanyInfo(
     var summary: String,
 
     @Column(nullable = false, length = 100000)
-    var description: String
+    var info: String
 ): BaseEntity() {
 
 }

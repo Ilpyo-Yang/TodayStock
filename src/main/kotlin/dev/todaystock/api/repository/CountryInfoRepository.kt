@@ -8,4 +8,5 @@ import java.util.*
 
 @Repository
 interface CountryInfoRepository: JpaRepository<CountryInfo, UUID>, KotlinJdslJpqlExecutor {
+    fun findByUuid(infoUuid: UUID): List<CountryInfo>
 }

@@ -1,4 +1,4 @@
-package dev.todaystock.api.dto.infoType
+package dev.todaystock.api.dto.info
 
 import dev.todaystock.api.entity.Company
 import dev.todaystock.api.entity.Country
@@ -11,6 +11,12 @@ class InfoTypeResponse(
     var profile: String
 ) {
     companion object {
+        fun fromCompanies(companies: List<Company>): List<InfoTypeResponse> = companies.map { i -> fromCompany(i) }
+
+        fun fromCountries(countries: List<Country>): List<InfoTypeResponse> = countries.map { i -> fromCountry(i) }
+
+        fun fromThemes(themes: List<Theme>): List<InfoTypeResponse> = themes.map { i -> fromTheme(i) }
+
         fun fromCompany(company: Company): InfoTypeResponse = InfoTypeResponse(
             uuid = company.uuid,
             name = company.name,

@@ -8,4 +8,5 @@ import java.util.*
 
 @Repository
 interface ThemeInfoRepository: JpaRepository<ThemeInfo, UUID>, KotlinJdslJpqlExecutor {
+    fun findByUuid(infoUuid: UUID): List<ThemeInfo>
 }
