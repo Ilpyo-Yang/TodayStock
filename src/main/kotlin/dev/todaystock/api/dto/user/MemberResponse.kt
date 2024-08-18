@@ -4,7 +4,7 @@ import dev.todaystock.api.entity.*
 import dev.todaystock.api.entity.type.UserRoleType
 import java.util.*
 
-class UserResponse(
+class MemberResponse(
     var uuid: UUID?,
     var email: String,
     var nickname: String?,
@@ -13,13 +13,13 @@ class UserResponse(
     var deeplink: String?
 ) {
     companion object {
-        fun fromCompanyInfo(user: User): UserResponse = UserResponse(
-            uuid = user.uuid,
-            email = user.email,
-            nickname = user.nickname,
-            name = user.name,
-            role = user.role,
-            deeplink = user.deeplink
+        fun fromMember(member: Member): MemberResponse = MemberResponse(
+            uuid = member.uuid,
+            email = member.email,
+            nickname = member.nickname,
+            name = member.name,
+            role = member.role,
+            deeplink = member.deeplink
         )
     }
 }

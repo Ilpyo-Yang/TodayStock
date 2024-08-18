@@ -8,14 +8,14 @@ import java.util.*
 
 @Entity
 @EntityListeners(AuditingEntityListener::class)
-@Table(name="user")
+@Table(name="member")
 @AllArgsConstructor
-class User(
+class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     var uuid: UUID?,
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     var email: String,
 
     @Column(nullable = false)

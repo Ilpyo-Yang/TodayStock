@@ -4,7 +4,7 @@ import dev.todaystock.api.entity.*
 import dev.todaystock.api.entity.type.UserRoleType
 import java.util.*
 
-class UserRequest(
+class MemberRequest(
     var uuid: UUID?,
     var email: String,
     var password: String,
@@ -14,14 +14,14 @@ class UserRequest(
     var deeplink: String?
 ) {
     companion object {
-        fun toCompanyInfo(userRequest: UserRequest): User = User(
-            uuid = userRequest.uuid,
-            email = userRequest.email,
-            password = userRequest.password,
-            nickname = userRequest.nickname?.let { randomUsername() },
-            name = userRequest.name,
-            role = userRequest.role,
-            deeplink = userRequest.deeplink
+        fun toCompanyInfo(memberRequest: MemberRequest): Member = Member(
+            uuid = memberRequest.uuid,
+            email = memberRequest.email,
+            password = memberRequest.password,
+            nickname = memberRequest.nickname?.let { randomUsername() },
+            name = memberRequest.name,
+            role = memberRequest.role,
+            deeplink = memberRequest.deeplink
         )
 
         fun randomUsername(): String {
