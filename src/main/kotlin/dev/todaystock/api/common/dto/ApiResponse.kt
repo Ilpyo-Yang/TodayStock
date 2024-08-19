@@ -4,9 +4,9 @@ import dev.todaystock.api.common.exception.ErrorCode
 import org.springframework.http.HttpStatus
 
 class ApiResponse<T> (
-    private val status: String,
-    private val message: String?,
-    private val data: T? = null
+    val status: String,
+    val message: String?,
+    val data: T? = null
 ) {
     companion object {
         fun successResponse(): ApiResponse<Nothing> = ApiResponse(
