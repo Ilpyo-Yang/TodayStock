@@ -3,10 +3,7 @@ package dev.todaystock.api.info.dto
 import com.fasterxml.jackson.annotation.JsonProperty
 import dev.todaystock.api.info.entity.CompanyInfo
 import dev.todaystock.api.info.entity.CountryInfo
-import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.info.entity.ThemeInfo
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
 import jakarta.validation.constraints.NotBlank
 import java.util.*
 

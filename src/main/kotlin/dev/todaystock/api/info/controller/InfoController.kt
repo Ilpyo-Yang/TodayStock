@@ -3,6 +3,7 @@ package dev.todaystock.api.info.controller
 import dev.todaystock.api.common.dto.ApiResponse
 import dev.todaystock.api.info.dto.InfoRequest
 import dev.todaystock.api.common.exception.ErrorCode
+import dev.todaystock.api.info.dto.InfoResponse
 import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.info.service.InfoService
 import jakarta.validation.Valid
@@ -19,14 +20,14 @@ class InfoController(
     @GetMapping
     fun findByInfoUuid(@PathVariable infoType: InfoType,
                        @RequestBody(required = true) infoUuid: UUID
-    ): ResponseEntity<ApiResponse> {
+    ): ResponseEntity<ApiResponse<List<InfoResponse?>>> {
         return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoService.findAll(infoUuid, infoType)))
     }
 
     @PostMapping
     fun create(@PathVariable infoType: InfoType,
                @RequestBody @Valid request: InfoRequest
-    ): ResponseEntity<ApiResponse> {
+    ): ResponseEntity<ApiResponse<InfoResponse?>> {
         return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoService.create(infoType, request)))
     }
 
@@ -34,7 +35,7 @@ class InfoController(
     @DeleteMapping
     fun delete(@PathVariable infoType: InfoType,
                @RequestBody(required = true) uuid: UUID
-    ): ResponseEntity<ApiResponse> {
+    ): ResponseEntity<ApiResponse<out HttpStatus>> {
         if(infoService.delete(infoType, uuid)) {
             return ResponseEntity.ok(ApiResponse.successResponse())
         }

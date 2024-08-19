@@ -1,4 +1,4 @@
-package dev.todaystock.api.dto.info
+package dev.todaystock.api.member.dto
 
 import dev.todaystock.api.member.entity.MemberRoleType
 import dev.todaystock.api.member.entity.Member

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import dev.todaystock.api.collect.entity.Collect
 import dev.todaystock.api.common.annotation.ValidEnum
 import dev.todaystock.api.info.entity.InfoType
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
 import jakarta.validation.constraints.NotBlank
 import java.util.*
 

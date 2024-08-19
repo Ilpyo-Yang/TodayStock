@@ -1,12 +1,9 @@
-package dev.todaystock.api.dto.info
+package dev.todaystock.api.member.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import dev.todaystock.api.common.annotation.ValidEnum
-import dev.todaystock.api.info.entity.InfoType
-import dev.todaystock.api.member.entity.MemberRoleType
 import dev.todaystock.api.member.entity.Member
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
+import dev.todaystock.api.member.entity.MemberRoleType
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import java.util.*
