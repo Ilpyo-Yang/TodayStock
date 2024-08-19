@@ -2,27 +2,25 @@ package dev.todaystock.api.info.entity
 
 import dev.todaystock.api.common.entity.BaseEntity
 import jakarta.persistence.*
-import lombok.AllArgsConstructor
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.util.*
 
 @Entity
 @EntityListeners(AuditingEntityListener::class)
 @Table(name="company_info")
-@AllArgsConstructor
 class CompanyInfo(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    var uuid: UUID?,
+    val uuid: UUID?,
 
     @Column(nullable = false, length = 36)
-    var companyUuid: UUID,
+    val companyUuid: UUID,
 
     @Column(nullable = false, length = 1000)
-    var summary: String,
+    val summary: String,
 
     @Column(nullable = false, length = 100000)
-    var info: String
+    val info: String
 ): BaseEntity() {
 
 }

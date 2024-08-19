@@ -5,6 +5,7 @@ import dev.todaystock.api.common.dto.ApiResponse
 import dev.todaystock.api.collect.dto.CollectRequest
 import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.common.exception.ErrorCode
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -28,7 +29,7 @@ class CollectController(
     }
 
     @PostMapping
-    fun create(@RequestBody request: CollectRequest): ResponseEntity<ApiResponse> {
+    fun create(@RequestBody @Valid request: CollectRequest): ResponseEntity<ApiResponse> {
         return ResponseEntity.ok(ApiResponse.successDataResponse(collectService.create(request)))
     }
 

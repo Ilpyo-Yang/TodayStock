@@ -1,15 +1,31 @@
 package dev.todaystock.api.info.dto
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import dev.todaystock.api.info.entity.Company
 import dev.todaystock.api.info.entity.Country
 import dev.todaystock.api.info.entity.Theme
+import jakarta.validation.constraints.NotBlank
 import java.util.*
 
 class InfoTypeRequest(
-    var uuid: UUID?,
-    var name: String,
-    var profile: String
+    @JsonProperty(value = "uuid")
+    private val _uuid: String?,
+
+    @JsonProperty(value = "name")
+    @field:NotBlank(message = "InfoType name cannot be empty")
+    private val _name: String,
+
+    @JsonProperty(value = "profile")
+    @field:NotBlank(message = "Profile cannot be empty")
+    private val _profile: String
 ) {
+    val uuid: UUID
+        get() = UUID.fromString(_uuid)
+    val name: String
+        get() = _name
+    val profile: String
+        get() = _profile
+
     companion object {
         fun toCompany(infoRequest: InfoTypeRequest): Company = Company(
             uuid = infoRequest.uuid ,

@@ -38,23 +38,22 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.3.2")
+	implementation("org.springframework.boot:spring-boot-starter-security:3.3.2")
+	implementation("org.springframework.boot:spring-boot-starter-web:3.3.2")
+	implementation("org.springframework.boot:spring-boot-starter-validation:3.3.2")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
+	implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.24")
 	implementation("org.postgresql:postgresql:42.7.2")
 	implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.5.0")
 	implementation("com.linecorp.kotlin-jdsl:jpql-render:3.5.0")
 	implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.5.0")
 	implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7")
-	compileOnly("org.projectlombok:lombok")
-	annotationProcessor("org.projectlombok:lombok")
-	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-	testImplementation("org.springframework.security:spring-security-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:3.3.2")
+	testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.2")
+	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.24")
+	testImplementation("org.springframework.security:spring-security-test:6.3.1")
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.3")
 }
 
 kotlin {

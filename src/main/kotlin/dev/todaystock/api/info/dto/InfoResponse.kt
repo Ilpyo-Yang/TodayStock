@@ -6,10 +6,10 @@ import dev.todaystock.api.info.entity.ThemeInfo
 import java.util.*
 
 class InfoResponse(
-    var uuid: UUID?,
-    var typeUuid: UUID,
-    var summary: String,
-    var info: String
+    private val uuid: UUID?,
+    private val typeUuid: UUID,
+    private val summary: String,
+    private val info: String
 ) {
     companion object {
         fun fromCompanyInfoList(companyInfo: List<CompanyInfo>): List<InfoResponse> = companyInfo.map { i -> fromCompanyInfo(i) }

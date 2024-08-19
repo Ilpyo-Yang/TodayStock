@@ -5,6 +5,7 @@ import dev.todaystock.api.info.dto.InfoRequest
 import dev.todaystock.api.common.exception.ErrorCode
 import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.info.service.InfoService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -24,7 +25,7 @@ class InfoController(
 
     @PostMapping
     fun create(@PathVariable infoType: InfoType,
-               @RequestBody request: InfoRequest
+               @RequestBody @Valid request: InfoRequest
     ): ResponseEntity<ApiResponse> {
         return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoService.create(infoType, request)))
     }

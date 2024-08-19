@@ -6,9 +6,9 @@ import dev.todaystock.api.info.entity.Theme
 import java.util.*
 
 class InfoTypeResponse(
-    var uuid: UUID?,
-    var name: String,
-    var profile: String
+    private val uuid: UUID?,
+    private val name: String,
+    private val profile: String
 ) {
     companion object {
         fun fromCompanies(companies: List<Company>): List<InfoTypeResponse> = companies.map { i -> fromCompany(i) }

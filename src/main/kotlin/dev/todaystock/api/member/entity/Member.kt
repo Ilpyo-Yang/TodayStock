@@ -2,34 +2,32 @@ package dev.todaystock.api.member.entity
 
 import dev.todaystock.api.common.entity.BaseEntity
 import jakarta.persistence.*
-import lombok.AllArgsConstructor
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.util.*
 
 @Entity
 @EntityListeners(AuditingEntityListener::class)
 @Table(name="member")
-@AllArgsConstructor
 class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    var uuid: UUID?,
+    val uuid: UUID?,
 
     @Column(nullable = false, length = 30, unique = true)
-    var email: String,
+    val email: String,
 
     @Column(nullable = false, length = 100)
-    var password: String,
+    val password: String,
 
     @Column(length = 30, unique = true)
-    var nickname: String?,
+    val nickname: String?,
 
     @Column(nullable = false, length = 50)
-    var name: String,
+    val name: String,
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    var role: MemberRoleType,
+    val role: MemberRoleType,
 
     @Column(length = 300)
     var deeplink: String?

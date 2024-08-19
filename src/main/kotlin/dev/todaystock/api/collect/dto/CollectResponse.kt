@@ -5,11 +5,11 @@ import dev.todaystock.api.info.entity.InfoType
 import java.util.*
 
 class CollectResponse(
-    var uuid: UUID?,
-    var userUuid: UUID,
-    var type: InfoType,
-    var relatedInfoUuid: UUID,
-    var summary: String
+    private val uuid: UUID?,
+    private val userUuid: UUID,
+    private val type: InfoType,
+    private val relatedInfoUuid: UUID,
+    private val summary: String
 ) {
     companion object {
         fun fromCollect(collect: Collect): CollectResponse = CollectResponse(

@@ -5,12 +5,12 @@ import dev.todaystock.api.member.entity.Member
 import java.util.*
 
 class MemberResponse(
-    var uuid: UUID?,
-    var email: String,
-    var nickname: String?,
-    var name: String,
-    var role: MemberRoleType,
-    var deeplink: String?
+    private val uuid: UUID?,
+    private val email: String,
+    private val nickname: String?,
+    private val name: String,
+    private val role: MemberRoleType,
+    private val deeplink: String?
 ) {
     companion object {
         fun fromMember(member: Member): MemberResponse = MemberResponse(
