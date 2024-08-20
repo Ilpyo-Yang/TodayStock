@@ -14,14 +14,14 @@ import java.util.*
 class CollectService(
     private val collectRepository: CollectRepository
 ) {
-    fun findByUserUuid(userUuid: UUID): List<String?> {
+    fun findByMemberUuid(memberUuid: UUID): List<String?> {
         return collectRepository.findAll {
             select(
                 path(Collect::type)
             ).from(
                 entity(Collect::class)
             ).whereAnd(
-                path(Collect::userUuid).eq(userUuid),
+                path(Collect::memberUuid).eq(memberUuid),
                 path(Collect::deletedDate).isNull()
             ).groupBy(
                 path(Collect::type)
@@ -29,14 +29,14 @@ class CollectService(
         }
     }
 
-    fun findByUserUuidAndType(userUuid: UUID, infoType: InfoType): List<Collect?> {
+    fun findByMemberUuidAndType(memberUuid: UUID, infoType: InfoType): List<Collect?> {
         return collectRepository.findAll {
             select(
                 entity(Collect::class)
             ).from(
                 entity(Collect::class)
             ).whereAnd(
-                path(Collect::userUuid).eq(userUuid),
+                path(Collect::memberUuid).eq(memberUuid),
                 path(Collect::type).eq(infoType.name),
                 path(Collect::deletedDate).isNull()
             )
@@ -51,7 +51,7 @@ class CollectService(
 //        val collect = collectRequest.uuid?.let { collectRepository.findById(it) }
 //        if (collect != null && collect.isPresent) {
 //            collect.get().apply {
-//                userUuid = collectRequest.userUuid
+//                memberUuid = collectRequest.memberUuid
 //                type = collectRequest.type.name
 //                relatedInfoUuid = collectRequest.relatedInfoUuid
 //                summary = collectRequest.summary

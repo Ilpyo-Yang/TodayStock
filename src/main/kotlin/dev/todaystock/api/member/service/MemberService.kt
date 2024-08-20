@@ -19,7 +19,7 @@ class MemberService(
 ) {
     fun signup(request: MemberRequest): MemberResponse? {
         if (memberRepository.findByEmail(request.email).isPresent) {
-            throw InvalidRequestException("Email already registered")
+            throw InvalidRequestException("Email")
         }
         return MemberResponse.fromMember(memberRepository.save(MemberRequest.toMember(request)))
     }
@@ -27,6 +27,6 @@ class MemberService(
     fun signin(signinRequest: SigninRequest): TokenDto {
         val authenticationToken = UsernamePasswordAuthenticationToken(signinRequest.email, signinRequest.password)
         val authentication = authenticationManagerBuilder.`object`.authenticate(authenticationToken)
-        return tokenProvider.createToken(authenticationToken)
+        return tokenProvider.createToken(authentication)
     }
 }

@@ -1,9 +1,8 @@
-package dev.todaystock.api.common.security
+package dev.todaystock.api.member.service
 
+import dev.todaystock.api.member.entity.CustomUserDetails
 import dev.todaystock.api.member.entity.Member
 import dev.todaystock.api.member.repository.MemberRepository
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -21,10 +20,14 @@ class CustomUserDetailsService(
             ?.let { createUserDetails(it) }
             ?: throw UsernameNotFoundException("There is no matching user")
 
-    private fun createUserDetails(member: Member): UserDetails =
-        User(
+    private fun createUserDetails(member: Member): CustomUserDetails =
+        CustomUserDetails(
+            member.uuid.toString(),
             member.email,
             passwordEncoder.encode(member.password),
-            member.role.name.map { SimpleGrantedAuthority("ROLE_${member.role.name}") }
+            member.nickname?: "",
+            member.name,
+            member.role.name,
+            member.deeplink?: ""
         )
 }

@@ -18,13 +18,18 @@ import org.springframework.web.bind.annotation.RestController
 class MemberController(
     private val memberService: MemberService
 ) {
-    @PostMapping
+    @PostMapping("/signup")
     fun signup(@RequestBody(required = true) @Valid memberRequest: MemberRequest): ResponseEntity<ApiResponse<MemberResponse>> {
         return ResponseEntity.ok().body(ApiResponse.successDataResponse(memberService.signup(memberRequest)))
     }
 
-    @PostMapping("signin")
+    @PostMapping("/signin")
     fun signup(@RequestBody(required = true) @Valid signinRequest: SigninRequest): ResponseEntity<ApiResponse<TokenDto>> {
         return ResponseEntity.ok().body(ApiResponse.successDataResponse(memberService.signin(signinRequest)))
     }
+
+//    @GetMapping
+//    fun signup(@AuthenticationPrincipal LoginUser loginUser): ResponseEntity<ApiResponse<MemberResponse>> {
+//        return ResponseEntity.ok().body(ApiResponse.successDataResponse(memberService.findByEmail(loginUser.username)))
+//    }
 }

@@ -11,9 +11,9 @@ class CollectRequest(
     @JsonProperty("uuid")
     private val _uuid: String?,
 
-    @JsonProperty("userUuid")
-    @field:NotBlank(message = "UserUuid cannot be empty")
-    private val _userUuid: String,
+    @JsonProperty("memberUuid")
+    @field:NotBlank(message = "MemberUuid cannot be empty")
+    private val _memberUuid: String,
 
     @JsonProperty("type")
     @field:NotBlank(message = "InfoType cannot be empty")
@@ -28,10 +28,10 @@ class CollectRequest(
     @field:NotBlank(message = "Summary cannot be empty")
     private val _summary: String
 ) {
-    val uuid: UUID
-        get() = UUID.fromString(_uuid)
-    val userUuid: UUID
-        get() = UUID.fromString(_userUuid)
+    val uuid: UUID?
+        get() = _uuid?.let { UUID.fromString(it) }
+    val memberUuid: UUID
+        get() = UUID.fromString(_memberUuid)
     val type: InfoType
         get() = InfoType.valueOf(_type)
     val relatedInfoUuid: UUID
@@ -42,7 +42,7 @@ class CollectRequest(
     companion object {
         fun toCollect(collectRequest: CollectRequest): Collect = Collect(
             uuid = collectRequest.uuid,
-            userUuid = collectRequest.userUuid,
+            memberUuid = collectRequest.memberUuid,
             type = collectRequest.type.name,
             relatedInfoUuid = collectRequest.relatedInfoUuid,
             summary = collectRequest.summary,

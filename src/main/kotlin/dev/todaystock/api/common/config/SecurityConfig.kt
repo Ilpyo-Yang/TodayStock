@@ -26,7 +26,7 @@ class SecurityConfig(
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
             .authorizeHttpRequests {
-                it.requestMatchers("/api/member/signup").anonymous()
+                it.requestMatchers("/v1/member/signup", "/v1/member/signin").anonymous()
                     .anyRequest().permitAll()
             }
             .addFilterBefore(

@@ -19,15 +19,15 @@ class CollectController(
     private val collectService: CollectService
 ) {
     @GetMapping
-    fun findByUserUuid(@RequestParam(required = true) userUuid: UUID): ResponseEntity<ApiResponse<List<String?>>> {
-        return ResponseEntity.ok(ApiResponse.successDataResponse(collectService.findByUserUuid(userUuid)))
+    fun findByMemberUuid(@RequestParam(required = true) memberUuid: UUID): ResponseEntity<ApiResponse<List<String?>>> {
+        return ResponseEntity.ok(ApiResponse.successDataResponse(collectService.findByMemberUuid(memberUuid)))
     }
 
     @GetMapping("/type")
-    fun findByUserUuidAndType(@RequestParam(required = true) userUuid: UUID,
+    fun findByMemberUuidAndType(@RequestParam(required = true) memberUuid: UUID,
                               @RequestParam(required = true) infoType: InfoType
     ): ResponseEntity<ApiResponse<List<Collect?>>> {
-        return ResponseEntity.ok(ApiResponse.successDataResponse(collectService.findByUserUuidAndType(userUuid, infoType)))
+        return ResponseEntity.ok(ApiResponse.successDataResponse(collectService.findByMemberUuidAndType(memberUuid, infoType)))
     }
 
     @PostMapping

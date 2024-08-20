@@ -6,7 +6,7 @@ import java.util.*
 
 class CollectResponse(
     private val uuid: UUID?,
-    private val userUuid: UUID,
+    private val memberUuid: UUID,
     private val type: InfoType,
     private val relatedInfoUuid: UUID,
     private val summary: String
@@ -14,7 +14,7 @@ class CollectResponse(
     companion object {
         fun fromCollect(collect: Collect): CollectResponse = CollectResponse(
             uuid = collect.uuid,
-            userUuid = collect.userUuid,
+            memberUuid = collect.memberUuid,
             type = InfoType.valueOf(collect.type),
             relatedInfoUuid = collect.relatedInfoUuid,
             summary = collect.summary

@@ -6,7 +6,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.util.*
 
 @Entity
-@EntityListeners(AuditingEntityListener::class)
 @Table(name="company_info")
 class CompanyInfo(
     @Id

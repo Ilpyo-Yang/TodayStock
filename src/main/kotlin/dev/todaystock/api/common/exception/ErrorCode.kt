@@ -8,7 +8,7 @@ enum class ErrorCode(
     val httpStatus: HttpStatus,
 ) {
     // common
-    DefaultError("E4010", "미처리 에러 내역입니다.", HttpStatus.BAD_REQUEST),
+    DefaultError("E4010", "에러가 발생했습니다.", HttpStatus.BAD_REQUEST),
     NotFound("E4040", "조회한 내용이 없습니다.", HttpStatus.NOT_FOUND),
     NotDeleted("E4090", "삭제되지 않았습니다.", HttpStatus.INTERNAL_SERVER_ERROR),
 

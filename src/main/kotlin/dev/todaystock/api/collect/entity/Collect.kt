@@ -12,7 +12,7 @@ class Collect(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val uuid: UUID?,
-    val userUuid: UUID,
+    val memberUuid: UUID,
     val type: String,
     val relatedInfoUuid: UUID,
     val summary: String
