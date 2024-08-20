@@ -44,12 +44,12 @@ class MemberRequest(
         get() = _email
     val password: String
         get() = _password
-    val nickname: String?
-        get() = _nickname
+    val nickname: String
+        get() = _nickname?: randomUserNickname()
     val name: String
         get() = _name
-    val role: String?
-        get() = _role
+    val role: MemberRoleType
+        get() = MemberRoleType.valueOf(_role?: MemberRoleType.Member.name)
     val deeplink: String?
         get() = _deeplink
 
@@ -58,15 +58,17 @@ class MemberRequest(
             uuid = memberRequest.uuid,
             email = memberRequest.email,
             password = memberRequest.password,
-            nickname = memberRequest.nickname?.let { randomUsername() },
+            nickname = memberRequest.nickname,
             name = memberRequest.name,
-            role = memberRequest.role?.let { MemberRoleType.Member.name },
+            role = memberRequest.role,
             deeplink = memberRequest.deeplink
         )
 
-        fun randomUsername(): String {
-            // todo
-            return ""
+        fun randomUserNickname(): String {
+            val chars = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+            return (1..10)
+                .map { chars.random() }
+                .joinToString("")
         }
     }
 

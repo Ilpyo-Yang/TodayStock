@@ -1,6 +1,5 @@
 package dev.todaystock.api.member.dto
 
-import dev.todaystock.api.member.entity.MemberRoleType
 import dev.todaystock.api.member.entity.Member
 import java.util.*
 
@@ -9,7 +8,7 @@ class MemberResponse(
     private val email: String,
     private val nickname: String?,
     private val name: String,
-    private val role: MemberRoleType,
+    private val role: String,
     private val deeplink: String?
 ) {
     companion object {
@@ -18,7 +17,7 @@ class MemberResponse(
             email = member.email,
             nickname = member.nickname,
             name = member.name,
-            role = member.role,
+            role = member.role.name,
             deeplink = member.deeplink
         )
     }
