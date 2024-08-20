@@ -27,7 +27,7 @@ class Member(
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    val role: MemberRoleType,
+    val role: String?,
 
     @Column(length = 300)
     var deeplink: String?

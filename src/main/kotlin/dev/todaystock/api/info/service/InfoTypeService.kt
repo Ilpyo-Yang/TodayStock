@@ -1,5 +1,6 @@
 package dev.todaystock.api.info.service
 
+import dev.todaystock.api.common.exception.InvalidRequestException
 import dev.todaystock.api.info.dto.InfoTypeRequest
 import dev.todaystock.api.info.dto.InfoTypeResponse
 import dev.todaystock.api.info.entity.InfoType
@@ -40,21 +41,21 @@ class InfoTypeService(
 
     fun createCompanyInfo(request: InfoTypeRequest): InfoTypeResponse? {
         if(companyRepository.findByNameLike(request.name) != null) {
-            throw RuntimeException("Company with name ${request.name} already exists")
+            throw InvalidRequestException("Company with name ${request.name} already exists")
         }
         return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
     }
 
     fun createCountryInfo(request: InfoTypeRequest): InfoTypeResponse? {
         if(countryRepository.findByNameLike(request.name) != null) {
-            throw RuntimeException("Company with name ${request.name} already exists")
+            throw InvalidRequestException("Country with name ${request.name} already exists")
         }
         return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
     }
 
     fun createThemeInfo(request: InfoTypeRequest): InfoTypeResponse? {
         if(themeRepository.findByNameLike(request.name) != null) {
-            throw RuntimeException("Company with name ${request.name} already exists")
+            throw InvalidRequestException("Theme with name ${request.name} already exists")
         }
         return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
     }

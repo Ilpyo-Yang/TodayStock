@@ -7,9 +7,13 @@ enum class ErrorCode(
     val message: String,
     val httpStatus: HttpStatus,
 ) {
-    DefaultError("E401", "미처리 에러 내역입니다.", HttpStatus.BAD_REQUEST),
-    NotFound("E404", "조회한 내용이 없습니다.", HttpStatus.NOT_FOUND),
-    NotDeleted("E409", "삭제되지 않았습니다.", HttpStatus.CONFLICT),
-    InValidRequest("E410", "올바르지 않은 요청값입니다. ", HttpStatus.BAD_REQUEST);
+    // common
+    DefaultError("E4010", "미처리 에러 내역입니다.", HttpStatus.BAD_REQUEST),
+    NotFound("E4040", "조회한 내용이 없습니다.", HttpStatus.NOT_FOUND),
+    NotDeleted("E4090", "삭제되지 않았습니다.", HttpStatus.INTERNAL_SERVER_ERROR),
+
+    // security
+    InValidRequest("E4200", "올바르지 않은 요청값입니다. ", HttpStatus.BAD_REQUEST),
+    BadCredentials("E4210", "아이디 혹은 비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST)
 
 }

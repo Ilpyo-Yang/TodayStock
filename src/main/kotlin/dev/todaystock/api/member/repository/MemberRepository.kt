@@ -8,4 +8,5 @@ import java.util.*
 
 @Repository
 interface MemberRepository: JpaRepository<Member, UUID>, KotlinJdslJpqlExecutor {
+    fun findByEmail(email: String): Optional<Member>
 }

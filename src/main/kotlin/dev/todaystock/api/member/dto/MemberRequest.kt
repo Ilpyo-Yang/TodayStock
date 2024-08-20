@@ -32,9 +32,8 @@ class MemberRequest(
     private val _name: String,
 
     @JsonProperty("role")
-    @field:NotBlank(message = "Role name cannot be empty")
     @field:ValidEnum(enumClass = MemberRoleType::class, message = "Choose one of MemberRoleType")
-    private val _role: String,
+    private val _role: String?,
 
     @JsonProperty("deeplink")
     private val _deeplink: String?
@@ -46,11 +45,11 @@ class MemberRequest(
     val password: String
         get() = _password
     val nickname: String?
-        get() = _nickname?.let { randomUsername() }
+        get() = _nickname
     val name: String
         get() = _name
-    val role: MemberRoleType
-        get() = MemberRoleType.valueOf(_role)
+    val role: String?
+        get() = _role
     val deeplink: String?
         get() = _deeplink
 
@@ -61,7 +60,7 @@ class MemberRequest(
             password = memberRequest.password,
             nickname = memberRequest.nickname?.let { randomUsername() },
             name = memberRequest.name,
-            role = memberRequest.role,
+            role = memberRequest.role?.let { MemberRoleType.Member.name },
             deeplink = memberRequest.deeplink
         )
 

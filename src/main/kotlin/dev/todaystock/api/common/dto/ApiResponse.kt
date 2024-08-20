@@ -11,13 +11,13 @@ class ApiResponse<T> (
     companion object {
         fun successResponse(): ApiResponse<Nothing> = ApiResponse(
             status = HttpStatus.OK.name,
-            message = HttpStatus.OK.reasonPhrase,
+            message = "Success",
             data = null
         )
 
         fun <T> successDataResponse(data: T?): ApiResponse<T> = ApiResponse(
             status = HttpStatus.OK.name,
-            message = HttpStatus.OK.reasonPhrase,
+            message = "Success",
             data = data
         )
 
