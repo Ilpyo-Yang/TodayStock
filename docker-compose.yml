@@ -1,0 +1,46 @@
+version: '3.8'
+
+volumes:
+  db-data:
+    external: false
+  redis-data:
+    external: false
+  zookeeper-data:
+    external: false
+  kafka-data:
+    external: false
+
+networks:
+  kafka-net:
+    driver: bridge
+
+services:
+  postgres:
+    container_name: todaystock_postgres
+    image: postgis/postgis
+    platform: linux/amd64
+    ports:
+      - "5432:5432"
+    env_file: .env
+    environment:
+      POSTGRES_DB: todaystock
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_MULTIPLE_EXTENSIONS: postgis,hstore,postgis_topology,postgis_raster,pgrouting
+      LANG: C.UTF-8
+      TZ: Asia/Seoul
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: always
+
+  api:
+    container_name: todaystock_api
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    restart: always

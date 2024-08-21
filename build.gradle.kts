@@ -1,6 +1,5 @@
 plugins {
 	val kotlinVersion = "1.9.24"
-	war
 	id("org.springframework.boot") version "3.3.2"
 	id("io.spring.dependency-management") version "1.1.6"
 	kotlin("jvm") version kotlinVersion
@@ -52,7 +51,7 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
 	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
 	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
-	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:3.3.2")
+//	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:3.3.2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.2")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.24")
 	testImplementation("org.springframework.security:spring-security-test:6.3.1")
@@ -63,7 +62,7 @@ kotlin {
 	compilerOptions {
 		freeCompilerArgs.addAll("-Xjsr305=strict")
 	}
-	jvmToolchain(22)
+	jvmToolchain(21)
 }
 
 tasks.withType<Test> {
