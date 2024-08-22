@@ -1,11 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
-name: Build and upload Docker image
+name: Build and Deploy
 
 on:
   push:
@@ -13,35 +6,54 @@ on:
       - main
 
 jobs:
-  build-push:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: 'Check repository'
-        uses: 'actions/checkout@v4'
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-      - name: 'Set vars'
-        run: 'echo "IMAGE_TAG=$REGION-docker.pkg.dev/$PROJECT/$REPO/$IMAGE" >> $GITHUB_ENV'
-
-      - name: 'GCP Auth'
-        uses: 'google-github-actions/auth@v2'
+      - name: Set up JDK
+        uses: actions/setup-java@v3
         with:
-          credential_json: '${{ secrets.GCP_ARTIFACT_REGISTRY_ADMIN_SCRET }}'
+            java-version: '21'
+            distribution: 'temurin'
 
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v2'
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.8
+          arguments: build -x test
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
         with:
           version: '>= 363.0.0'
 
-      - name: 'Build and Push'
-        run: 'docker/build.-push-action@v5'
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_ARTIFACT_REGISTRY_ADMIN_SECRET }}
+
+      - name: Use gcloud CLI
+        run: gcloud info
+
+      - name: Set environment variables
+        run: echo "IMAGE_TAG=${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.PROJECT }}/${{ env.GITHUB_REPOSITORY_BRANCH }}/${{ env.IMAGE }}" >> $GITHUB_ENV
+
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v2
         with:
           context: .
+          file: ./Dockerfile
           push: true
-          tags: '${{ env.IMAGE_TAG }}'
-
+          tags: ${{ env.IMAGE_TAG }}
 
 env:
   GCP_REGION: asia-northeast3
   PROJECT: todaystock
   GITHUB_REPOSITORY_BRANCH: main
-  IMAGE_TAG: todaystock
+  IMAGE: todaystock
