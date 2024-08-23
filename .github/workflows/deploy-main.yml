@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build:
@@ -58,9 +58,7 @@ jobs:
 
       - name: Pull and Tag Docker Image, then Deploy
         run: |
-          IMAGE_TAG=${{ secrets.GCP_IMAGE_TAG }}
-          
           gcloud compute ssh todaystock-instance --zone asia-northeast3-a --command "
-            docker pull  $GCP_IMAGE_TAG &&
-            sudo docker run -d -p 80:80 $ $GCP_IMAGE_TAG
+            docker pull ${ secrets.GCP_IMAGE_TAG } &&
+            sudo docker run -d -p 80:80 ${ secrets.GCP_IMAGE_TAG }
           "
