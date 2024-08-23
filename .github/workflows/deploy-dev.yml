@@ -1,0 +1,26 @@
+name: Test and Build Check (dev)
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: 8.8
+          arguments: build -x test
