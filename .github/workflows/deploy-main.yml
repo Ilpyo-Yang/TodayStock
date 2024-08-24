@@ -56,9 +56,28 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_ARTIFACT_REGISTRY_ADMIN_SECRET }}
 
-      - name: Pull and Tag Docker Image, then Deploy
+      - name: Generate .env file
         run: |
-          gcloud compute ssh todaystock-instance --zone asia-northeast3-a --command "
-            docker pull ${ secrets.GCP_IMAGE_TAG } &&
-            sudo docker run -d -p 80:80 ${ secrets.GCP_IMAGE_TAG }
-          "
+          echo "DB_URL=$DB_URL" >> .env
+          echo "DB_USERNAME=$DB_USERNAME" >> .env
+          echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+          echo "GCP_IMAGE_TAG=$DB_GCP_IMAGE_TAG" >> .env
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_USERNAME }}
+          GCP_IMAGE: ${{ secrets.GCP_IMAGE_TAG }}
+
+      - name: Pull and Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GCP_SSH_HOST }}
+          username: ${{ secrets.GCP_SSH_USERNAME }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          port: ${{ secrets.GCP_SSH_PORT }}
+          script_stop: true
+          script: |
+            find ./.env
+            sudo docker stop $(sudo docker ps -a -q)
+            docker run -d --restart=always --name todaystock --env-file=./.env -p 8080:80 \
+            ${{ secrets.GCP_IMAGE_TAG }}
