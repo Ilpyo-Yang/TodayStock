@@ -58,15 +58,15 @@ jobs:
 
       - name: Generate .env file
         run: |
-          echo "DB_URL=$DB_URL" >> .env
-          echo "DB_USERNAME=$DB_USERNAME" >> .env
-          echo "DB_PASSWORD=$DB_PASSWORD" >> .env
-          echo "GCP_IMAGE_TAG=$DB_GCP_IMAGE_TAG" >> .env
+          echo "DB_URL=${{ env.DB_URL }}" >> .env
+          echo "DB_USERNAME=${{ env.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ env.DB_PASSWORD }}" >> .env
+          echo "GCP_IMAGE_TAG=${{ env.GCP_IMAGE_TAG }}" >> .env
         env:
           DB_URL: ${{ secrets.DB_URL }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_USERNAME }}
-          GCP_IMAGE: ${{ secrets.GCP_IMAGE_TAG }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          GCP_IMAGE_TAG: ${{ secrets.GCP_IMAGE_TAG }}
 
       - name: Pull and Deploy
         uses: appleboy/ssh-action@v1.0.3
@@ -79,5 +79,4 @@ jobs:
           script: |
             find ./.env
             sudo docker stop $(sudo docker ps -a -q)
-            docker run -d --restart=always --name todaystock --env-file=./.env -p 8080:80 \
-            ${{ secrets.GCP_IMAGE_TAG }}
+            docker run -d --restart=always --name todaystock --env-file=./.env -p 8080:80 ${{ secrets.GCP_IMAGE_TAG }}
