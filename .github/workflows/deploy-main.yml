@@ -23,7 +23,7 @@ jobs:
         uses: gradle/gradle-build-action@v3
         with:
           gradle-version: 8.8
-          arguments: build -x test
+          arguments: clean build -x test --no-build-cache
 
       - name: Google Cloud Auth
         uses: google-github-actions/auth@v2
@@ -45,6 +45,7 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.GCP_IMAGE_TAG }}
+          no-cache: true
 
   deploy:
     runs-on: ubuntu-latest
@@ -69,5 +70,5 @@ jobs:
           script: |
             > .env
             echo "${{ env.ENV }}" >> .env
-            docker rm -f $(docker ps -aq)
-            docker run -d --restart=always --name todaystock --env-file .env -p 8080:80 ${{ secrets.GCP_IMAGE_TAG }}
+            docker ps -aq | xargs -r docker rm -f
+            docker run -d --restart=always --name todaystock --env-file .env -p 8080:8080 ${{ secrets.GCP_IMAGE_TAG }}

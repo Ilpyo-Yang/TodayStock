@@ -17,6 +17,9 @@ spring:
       ddl-auto: update
     defer-datasource-initialization: true
 
+jwt:
+  secret: ${JWT_SECRET}
+
 sql:
   init:
     mode: always
@@ -29,6 +32,3 @@ logging:
       hibernate:
         SQL: debug
         type.descriptor.sql: trace
-
-jwt:
-  secret: ${SECRET}
