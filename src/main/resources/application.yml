@@ -16,9 +16,28 @@ spring:
     hibernate:
       ddl-auto: update
     defer-datasource-initialization: true
+  flyway:
+    enabled: false
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    baseline-version: 1
+    fail-on-missing-locations: true
+    url: ${DB_URL}
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  ai:
+    vertex:
+      ai:
+        gemini:
+          project-id: todaystock
+          location: asia-northeast3
+          chat:
+            options:
+              model: vertex-pro-vision
+              temperature: 0.5
 
 jwt:
-  secret: ${JWT_SECRET}
+  secret:
 
 sql:
   init:
