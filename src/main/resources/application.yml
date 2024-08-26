@@ -14,8 +14,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
       logging.level.org.hibernate.SQL: debug
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     defer-datasource-initialization: true
+
+jwt:
+  secret: ${JWT_SECRET}
 
 sql:
   init:
