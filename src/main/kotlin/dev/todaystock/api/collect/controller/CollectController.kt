@@ -25,7 +25,7 @@ class CollectController(
 
     @GetMapping("/type")
     fun findByMemberUuidAndType(@RequestParam(required = true) memberUuid: UUID,
-                              @RequestParam(required = true) infoType: InfoType
+                                @RequestParam(required = true) infoType: InfoType
     ): ResponseEntity<ApiResponse<List<Collect?>>> {
         return ResponseEntity.ok(ApiResponse.successDataResponse(collectService.findByMemberUuidAndType(memberUuid, infoType)))
     }

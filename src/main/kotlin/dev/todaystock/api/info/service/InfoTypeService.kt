@@ -9,7 +9,6 @@ import dev.todaystock.api.info.repository.CountryRepository
 import dev.todaystock.api.info.repository.ThemeRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.sql.Timestamp
 import java.time.LocalDateTime
 import java.util.*
 
@@ -28,6 +27,13 @@ class InfoTypeService(
             }
         }
     }
+
+//    fun findCompanyTicker(ticker: String): InfoTypeResponse? {
+//        if(ticker == null) {
+//            throw BadRequestException("Company ticker needed!")
+//        }
+//        return InfoTypeResponse.fromCompany(companyRepository.findByTicker(ticker))
+//    }
 
     fun create(infoType: InfoType, request: InfoTypeRequest): InfoTypeResponse? {
         return when(infoType) {

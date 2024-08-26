@@ -15,6 +15,9 @@ class InfoTypeRequest(
     @field:NotBlank(message = "InfoType name cannot be empty")
     private val _name: String,
 
+    @JsonProperty(value = "ticker")
+    private val _ticker: String?,
+
     @JsonProperty(value = "profile")
     @field:NotBlank(message = "Profile cannot be empty")
     private val _profile: String
@@ -23,6 +26,8 @@ class InfoTypeRequest(
         get() = UUID.fromString(_uuid)
     val name: String
         get() = _name
+    val ticker: String?
+        get() = _ticker
     val profile: String
         get() = _profile
 
@@ -30,6 +35,7 @@ class InfoTypeRequest(
         fun toCompany(infoRequest: InfoTypeRequest): Company = Company(
             uuid = infoRequest.uuid ,
             name = infoRequest.name,
+            ticker = infoRequest.ticker.let { "" },
             profile = infoRequest.profile
         )
 

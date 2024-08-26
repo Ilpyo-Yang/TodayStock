@@ -15,6 +15,9 @@ class Company(
     @Column(nullable = false, length = 50)
     val name: String,
 
+    @Column(nullable = false, length = 30)
+    val ticker: String,
+
     @Column(nullable = false, length = 300)
     val profile: String
 ): BaseEntity() {

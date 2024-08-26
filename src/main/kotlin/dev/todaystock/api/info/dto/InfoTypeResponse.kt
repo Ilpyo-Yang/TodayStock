@@ -8,6 +8,7 @@ import java.util.*
 class InfoTypeResponse(
     private val uuid: UUID?,
     private val name: String,
+    private val ticker: String?,
     private val profile: String
 ) {
     companion object {
@@ -20,18 +21,21 @@ class InfoTypeResponse(
         fun fromCompany(company: Company): InfoTypeResponse = InfoTypeResponse(
             uuid = company.uuid,
             name = company.name,
+            ticker = company.ticker,
             profile = company.profile
         )
 
         fun fromCountry(country: Country): InfoTypeResponse = InfoTypeResponse(
             uuid = country.uuid,
             name = country.name,
+            ticker = "",
             profile = country.profile
         )
 
         fun fromTheme(theme: Theme): InfoTypeResponse = InfoTypeResponse(
             uuid = theme.uuid,
             name = theme.name,
+            ticker = "",
             profile = theme.profile
         )
     }
