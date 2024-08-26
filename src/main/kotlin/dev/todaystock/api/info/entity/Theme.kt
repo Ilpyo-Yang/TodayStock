@@ -1,8 +1,8 @@
 package dev.todaystock.api.info.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import dev.todaystock.api.common.entity.BaseEntity
 import jakarta.persistence.*
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.util.*
 
 @Entity
@@ -16,7 +16,12 @@ class Theme(
     val name: String,
 
     @Column(nullable = false, length = 300)
-    val profile: String
+    val profile: String,
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "theme", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val themeInfoList: MutableList<ThemeInfo>? = mutableListOf()
+
 ): BaseEntity() {
 
 }

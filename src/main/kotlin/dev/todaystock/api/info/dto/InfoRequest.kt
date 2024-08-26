@@ -1,9 +1,7 @@
 package dev.todaystock.api.info.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import dev.todaystock.api.info.entity.CompanyInfo
-import dev.todaystock.api.info.entity.CountryInfo
-import dev.todaystock.api.info.entity.ThemeInfo
+import dev.todaystock.api.info.entity.*
 import jakarta.validation.constraints.NotBlank
 import java.util.*
 
@@ -33,23 +31,23 @@ class InfoRequest(
         get() = _info
 
     companion object {
-        fun toCompanyInfo(infoRequest: InfoRequest): CompanyInfo = CompanyInfo(
+        fun toCompanyInfo(infoRequest: InfoRequest, company: Company): CompanyInfo = CompanyInfo(
             uuid = infoRequest.uuid,
-            companyUuid = infoRequest.typeUuid,
+            company = company,
             summary = infoRequest.summary,
             info = infoRequest.info,
         )
 
-        fun toCountryInfo(infoRequest: InfoRequest): CountryInfo = CountryInfo(
+        fun toCountryInfo(infoRequest: InfoRequest, country: Country): CountryInfo = CountryInfo(
             uuid = infoRequest.uuid,
-            countryUuid = infoRequest.typeUuid,
+            country = country,
             summary = infoRequest.summary,
             info = infoRequest.info,
         )
 
-        fun toThemeInfo(infoRequest: InfoRequest): ThemeInfo = ThemeInfo(
+        fun toThemeInfo(infoRequest: InfoRequest, theme: Theme): ThemeInfo = ThemeInfo(
             uuid = infoRequest.uuid,
-            themeUuid = infoRequest.typeUuid,
+            theme = theme,
             summary = infoRequest.summary,
             info = infoRequest.info,
         )

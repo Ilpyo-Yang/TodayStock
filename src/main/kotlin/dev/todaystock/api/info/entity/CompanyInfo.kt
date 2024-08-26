@@ -2,7 +2,6 @@ package dev.todaystock.api.info.entity
 
 import dev.todaystock.api.common.entity.BaseEntity
 import jakarta.persistence.*
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.util.*
 
 @Entity
@@ -12,8 +11,9 @@ class CompanyInfo(
     @GeneratedValue(strategy = GenerationType.UUID)
     val uuid: UUID?,
 
-    @Column(nullable = false, length = 36)
-    val companyUuid: UUID,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_uuid", nullable = false)
+    val company: Company,
 
     @Column(nullable = false, length = 1000)
     val summary: String,

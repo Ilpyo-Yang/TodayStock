@@ -12,8 +12,9 @@ class CountryInfo(
     @GeneratedValue(strategy = GenerationType.UUID)
     val uuid: UUID?,
 
-    @Column(nullable = false, length = 36)
-    val countryUuid: UUID,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_uuid", nullable = false)
+    val country: Country,
 
     @Column(nullable = false, length = 1000)
     val summary: String,

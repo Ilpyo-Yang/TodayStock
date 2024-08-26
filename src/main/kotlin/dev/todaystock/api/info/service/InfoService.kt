@@ -3,20 +3,21 @@ package dev.todaystock.api.info.service
 import dev.todaystock.api.info.dto.InfoRequest
 import dev.todaystock.api.info.dto.InfoResponse
 import dev.todaystock.api.info.entity.InfoType
-import dev.todaystock.api.info.repository.CompanyInfoRepository
-import dev.todaystock.api.info.repository.CountryInfoRepository
-import dev.todaystock.api.info.repository.ThemeInfoRepository
+import dev.todaystock.api.info.repository.*
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.sql.Timestamp
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.NoSuchElementException
 
 @Service
 class InfoService(
     private val companyInfoRepository: CompanyInfoRepository,
     private val countryInfoRepository: CountryInfoRepository,
-    private val themeInfoRepository: ThemeInfoRepository
+    private val themeInfoRepository: ThemeInfoRepository,
+    private val companyRepository: CompanyRepository,
+    private val countryRepository: CountryRepository,
+    private val themeRepository: ThemeRepository
 ) {
     fun findAll(infoUuid: UUID, infoType: InfoType): List<InfoResponse?> {
         when(infoType) {
@@ -30,10 +31,20 @@ class InfoService(
 
     fun create(infoType: InfoType, request: InfoRequest): InfoResponse? {
         return when(infoType) {
-            InfoType.Company -> InfoResponse.fromCompanyInfo(companyInfoRepository.save(InfoRequest.toCompanyInfo(request)))
-            InfoType.Country -> InfoResponse.fromCountryInfo(countryInfoRepository.save(InfoRequest.toCountryInfo(request)))
+            InfoType.Company -> {
+                val company = companyRepository.findById(request.typeUuid)
+                    .orElseThrow { NoSuchElementException("NOT registered company uuid") }
+                InfoResponse.fromCompanyInfo(companyInfoRepository.save(InfoRequest.toCompanyInfo(request, company)))
+            }
+            InfoType.Country -> {
+                val country = countryRepository.findById(request.typeUuid)
+                    .orElseThrow { NoSuchElementException("NOT registered company uuid") }
+                InfoResponse.fromCountryInfo(countryInfoRepository.save(InfoRequest.toCountryInfo(request, country)))
+            }
             else -> {
-                InfoResponse.fromThemeInfo(themeInfoRepository.save(InfoRequest.toThemeInfo(request)))
+                val theme = themeRepository.findById(request.typeUuid)
+                    .orElseThrow { NoSuchElementException("NOT registered company uuid") }
+                InfoResponse.fromThemeInfo(themeInfoRepository.save(InfoRequest.toThemeInfo(request, theme)))
             }
         }
     }

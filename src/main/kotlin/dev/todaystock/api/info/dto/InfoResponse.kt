@@ -20,21 +20,21 @@ class InfoResponse(
 
         fun fromCompanyInfo(companyInfo: CompanyInfo): InfoResponse = InfoResponse(
             uuid = companyInfo.uuid,
-            typeUuid = companyInfo.companyUuid,
+            typeUuid = companyInfo.company.uuid!!,
             summary = companyInfo.summary,
             info = companyInfo.info
         )
 
         fun fromCountryInfo(countryInfo: CountryInfo): InfoResponse = InfoResponse(
             uuid = countryInfo.uuid,
-            typeUuid = countryInfo.countryUuid,
+            typeUuid = countryInfo.country.uuid!!,
             summary = countryInfo.summary,
             info = countryInfo.info
         )
 
         fun fromThemeInfo(themeInfo: ThemeInfo): InfoResponse = InfoResponse(
             uuid = themeInfo.uuid,
-            typeUuid = themeInfo.themeUuid,
+            typeUuid = themeInfo.theme.uuid!!,
             summary = themeInfo.summary,
             info = themeInfo.info
         )
