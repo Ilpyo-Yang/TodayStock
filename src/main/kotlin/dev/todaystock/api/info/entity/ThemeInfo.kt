@@ -15,8 +15,11 @@ class ThemeInfo(
     @JoinColumn(name = "theme_uuid", nullable = false)
     val theme: Theme,
 
+    @Column(nullable = false, length = 300)
+    val title: String,
+
     @Column(nullable = false, length = 1000)
-    val summary: String,
+    val link: String,
 
     @Column(nullable = false, length = 100000)
     val info: String

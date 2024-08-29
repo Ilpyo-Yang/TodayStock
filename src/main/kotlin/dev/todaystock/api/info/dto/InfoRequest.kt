@@ -13,9 +13,13 @@ class InfoRequest(
     @field:NotBlank(message = "TypeUuid cannot be empty")
     private val _typeUuid: String,
 
-    @JsonProperty("summary")
-    @field:NotBlank(message = "Summary cannot be empty")
-    private val _summary: String,
+    @JsonProperty("title")
+    @field:NotBlank(message = "Title cannot be empty")
+    private val _title: String,
+
+    @JsonProperty("link")
+    @field:NotBlank(message = "Link cannot be empty")
+    private val _link: String,
 
     @JsonProperty("info")
     @field:NotBlank(message = "Info cannot be empty")
@@ -25,8 +29,10 @@ class InfoRequest(
         get() = UUID.fromString(_uuid)
     val typeUuid: UUID
         get() = UUID.fromString(_typeUuid)
-    val summary: String
-        get() = _summary
+    val title: String
+        get() = _title
+    val link: String
+        get() = _link
     val info: String
         get() = _info
 
@@ -34,21 +40,24 @@ class InfoRequest(
         fun toCompanyInfo(infoRequest: InfoRequest, company: Company): CompanyInfo = CompanyInfo(
             uuid = infoRequest.uuid,
             company = company,
-            summary = infoRequest.summary,
+            title = infoRequest.title,
+            link = infoRequest.link,
             info = infoRequest.info,
         )
 
         fun toCountryInfo(infoRequest: InfoRequest, country: Country): CountryInfo = CountryInfo(
             uuid = infoRequest.uuid,
             country = country,
-            summary = infoRequest.summary,
+            title = infoRequest.title,
+            link = infoRequest.link,
             info = infoRequest.info,
         )
 
         fun toThemeInfo(infoRequest: InfoRequest, theme: Theme): ThemeInfo = ThemeInfo(
             uuid = infoRequest.uuid,
             theme = theme,
-            summary = infoRequest.summary,
+            title = infoRequest.title,
+            link = infoRequest.link,
             info = infoRequest.info,
         )
     }

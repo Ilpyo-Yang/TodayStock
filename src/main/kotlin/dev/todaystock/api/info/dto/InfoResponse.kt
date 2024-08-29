@@ -8,7 +8,8 @@ import java.util.*
 class InfoResponse(
     private val uuid: UUID?,
     private val typeUuid: UUID,
-    private val summary: String,
+    private val title: String,
+    private val link: String,
     private val info: String
 ) {
     companion object {
@@ -21,21 +22,24 @@ class InfoResponse(
         fun fromCompanyInfo(companyInfo: CompanyInfo): InfoResponse = InfoResponse(
             uuid = companyInfo.uuid,
             typeUuid = companyInfo.company.uuid!!,
-            summary = companyInfo.summary,
+            title = companyInfo.title,
+            link = companyInfo.link,
             info = companyInfo.info
         )
 
         fun fromCountryInfo(countryInfo: CountryInfo): InfoResponse = InfoResponse(
             uuid = countryInfo.uuid,
             typeUuid = countryInfo.country.uuid!!,
-            summary = countryInfo.summary,
+            title = countryInfo.title,
+            link = countryInfo.link,
             info = countryInfo.info
         )
 
         fun fromThemeInfo(themeInfo: ThemeInfo): InfoResponse = InfoResponse(
             uuid = themeInfo.uuid,
             typeUuid = themeInfo.theme.uuid!!,
-            summary = themeInfo.summary,
+            title = themeInfo.title,
+            link = themeInfo.link,
             info = themeInfo.info
         )
     }

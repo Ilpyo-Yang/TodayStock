@@ -9,4 +9,5 @@ import java.util.*
 @Repository
 interface ThemeInfoRepository: JpaRepository<ThemeInfo, UUID>, KotlinJdslJpqlExecutor {
     fun findByUuid(infoUuid: UUID): List<ThemeInfo>
+    fun findByThemeUuid(infoTypeUuid: UUID): List<ThemeInfo>
 }

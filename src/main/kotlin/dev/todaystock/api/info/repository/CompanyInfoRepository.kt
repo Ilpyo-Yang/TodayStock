@@ -9,4 +9,5 @@ import java.util.*
 @Repository
 interface CompanyInfoRepository: JpaRepository<CompanyInfo, UUID>, KotlinJdslJpqlExecutor {
     fun findByUuid(infoUuid: UUID): List<CompanyInfo>
+    fun findByCompanyUuid(infoTypeUuid: UUID): List<CompanyInfo>
 }

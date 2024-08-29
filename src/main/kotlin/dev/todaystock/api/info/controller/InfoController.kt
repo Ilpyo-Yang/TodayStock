@@ -18,10 +18,10 @@ class InfoController(
     private val infoService: InfoService
 ) {
     @GetMapping
-    fun findByInfoUuid(@PathVariable infoType: InfoType,
-                       @RequestBody(required = true) infoUuid: UUID
+    fun findByInfoTypeUuid(@PathVariable infoType: InfoType,
+                           @RequestBody(required = true) typeUuid: UUID
     ): ResponseEntity<ApiResponse<List<InfoResponse?>>> {
-        return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoService.findAll(infoUuid, infoType)))
+        return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoService.findByInfoTypeUuid(typeUuid, infoType)))
     }
 
     @PostMapping

@@ -16,8 +16,11 @@ class CountryInfo(
     @JoinColumn(name = "country_uuid", nullable = false)
     val country: Country,
 
+    @Column(nullable = false, length = 300)
+    val title: String,
+
     @Column(nullable = false, length = 1000)
-    val summary: String,
+    val link: String,
 
     @Column(nullable = false, length = 100000)
     val info: String

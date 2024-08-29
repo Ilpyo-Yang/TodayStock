@@ -19,12 +19,12 @@ class InfoService(
     private val countryRepository: CountryRepository,
     private val themeRepository: ThemeRepository
 ) {
-    fun findAll(infoUuid: UUID, infoType: InfoType): List<InfoResponse?> {
+    fun findByInfoTypeUuid(infoTypeUuid: UUID, infoType: InfoType): List<InfoResponse?> {
         when(infoType) {
-            InfoType.Company -> return InfoResponse.fromCompanyInfoList(companyInfoRepository.findByUuid(infoUuid))
-            InfoType.Country -> return InfoResponse.fromCountryInfoList(countryInfoRepository.findByUuid(infoUuid))
+            InfoType.Company -> return InfoResponse.fromCompanyInfoList(companyInfoRepository.findByCompanyUuid(infoTypeUuid))
+            InfoType.Country -> return InfoResponse.fromCountryInfoList(countryInfoRepository.findByCountryUuid(infoTypeUuid))
             else -> {
-                return InfoResponse.fromThemeInfoList(themeInfoRepository.findByUuid(infoUuid))
+                return InfoResponse.fromThemeInfoList(themeInfoRepository.findByThemeUuid(infoTypeUuid))
             }
         }
     }
