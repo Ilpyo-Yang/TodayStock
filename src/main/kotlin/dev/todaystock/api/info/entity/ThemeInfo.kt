@@ -2,6 +2,7 @@ package dev.todaystock.api.info.entity
 
 import dev.todaystock.api.common.entity.BaseEntity
 import jakarta.persistence.*
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -22,7 +23,10 @@ class ThemeInfo(
     val link: String,
 
     @Column(nullable = false, length = 100000)
-    val info: String
+    val info: String,
+
+    @Column(nullable = false)
+    var publishedDttm: LocalDateTime
 ): BaseEntity() {
 
 }

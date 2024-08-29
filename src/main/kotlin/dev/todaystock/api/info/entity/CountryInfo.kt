@@ -3,6 +3,7 @@ package dev.todaystock.api.info.entity
 import dev.todaystock.api.common.entity.BaseEntity
 import jakarta.persistence.*
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -23,7 +24,10 @@ class CountryInfo(
     val link: String,
 
     @Column(nullable = false, length = 100000)
-    val info: String
+    val info: String,
+
+    @Column(nullable = false)
+    var publishedDttm: LocalDateTime
 ): BaseEntity() {
 
 }

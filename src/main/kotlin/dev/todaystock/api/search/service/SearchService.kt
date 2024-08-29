@@ -1,5 +1,6 @@
 package dev.todaystock.api.chat.service
 
+import dev.todaystock.api.chat.dto.NewsItemList
 import dev.todaystock.api.common.exception.CustomRuntimeException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatusCode
@@ -19,7 +20,7 @@ class SearchService {
     @Value("\${naver.api.client.secret}")
     lateinit var clientSecret: String
 
-    fun searchNews(keyword: String): ResponseEntity<String> {
+    fun searchNews(keyword: String): ResponseEntity<NewsItemList> {
         val customClient = RestClient.builder()
             .baseUrl("https://openapi.naver.com/")
             .defaultHeader("X-Naver-Client-Id", clientId)
@@ -36,7 +37,7 @@ class SearchService {
             .retrieve()
             .onStatus(HttpStatusCode::is4xxClientError) { _, response ->
                 throw CustomRuntimeException("Searching news failed, " + response.statusText) }
-            .toEntity<String>()
+            .toEntity<NewsItemList>()
 
         return result
     }
