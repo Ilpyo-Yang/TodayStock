@@ -41,7 +41,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security:3.3.2")
 	implementation("org.springframework.boot:spring-boot-starter-web:3.3.2")
 	implementation("org.springframework.boot:spring-boot-starter-validation:3.3.2")
-	implementation ("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.apache.httpcomponents.client5:httpclient5:5.3.1")
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
 	implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.24")
