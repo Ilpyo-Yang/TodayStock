@@ -3,6 +3,8 @@ package dev.todaystock.api.info.dto
 import com.fasterxml.jackson.annotation.JsonProperty
 import dev.todaystock.api.info.entity.*
 import jakarta.validation.constraints.NotBlank
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class InfoRequest(
@@ -23,7 +25,11 @@ class InfoRequest(
 
     @JsonProperty("info")
     @field:NotBlank(message = "Info cannot be empty")
-    private val _info: String
+    private val _info: String,
+
+    @JsonProperty("pubDate")
+    @field:NotBlank(message = "PubDate cannot be empty")
+    private val _pubDate: String
 ) {
     val uuid: UUID
         get() = UUID.fromString(_uuid)
@@ -35,6 +41,8 @@ class InfoRequest(
         get() = _link
     val info: String
         get() = _info
+    val pubDate: LocalDateTime
+        get() = LocalDateTime.parse(_pubDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"))
 
     companion object {
         fun toCompanyInfo(infoRequest: InfoRequest, company: Company): CompanyInfo = CompanyInfo(
@@ -43,6 +51,7 @@ class InfoRequest(
             title = infoRequest.title,
             link = infoRequest.link,
             info = infoRequest.info,
+            publishedDttm = infoRequest.pubDate
         )
 
         fun toCountryInfo(infoRequest: InfoRequest, country: Country): CountryInfo = CountryInfo(
@@ -51,6 +60,7 @@ class InfoRequest(
             title = infoRequest.title,
             link = infoRequest.link,
             info = infoRequest.info,
+            publishedDttm = infoRequest.pubDate
         )
 
         fun toThemeInfo(infoRequest: InfoRequest, theme: Theme): ThemeInfo = ThemeInfo(
@@ -59,6 +69,7 @@ class InfoRequest(
             title = infoRequest.title,
             link = infoRequest.link,
             info = infoRequest.info,
+            publishedDttm = infoRequest.pubDate
         )
     }
 }

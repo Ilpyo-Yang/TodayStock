@@ -27,6 +27,6 @@ class ThemeInfo(
 
     @Column(nullable = false)
     var publishedDttm: LocalDateTime
-): BaseEntity() {
+): BaseEntity(), MarkerInfo {
 
 }

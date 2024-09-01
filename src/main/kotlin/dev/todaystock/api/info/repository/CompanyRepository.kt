@@ -8,6 +8,6 @@ import java.util.*
 
 @Repository
 interface CompanyRepository: JpaRepository<Company, UUID>, KotlinJdslJpqlExecutor {
-    fun findByNameLike(typeName: String): Company?
+    fun findByName(typeName: String): Company?
     fun findByTicker(ticker: String): Company?
 }

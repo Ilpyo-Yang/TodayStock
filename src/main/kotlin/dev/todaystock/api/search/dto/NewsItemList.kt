@@ -18,5 +18,8 @@ class NewsItemList(
     private val display: Int,
 
     @JsonProperty("items")
-    private val items: List<NewsItem?>
-)
+    private val _items: List<NewsItem?>
+) {
+    val items: List<NewsItem?>
+        get() = _items
+}

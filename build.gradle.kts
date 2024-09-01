@@ -34,7 +34,10 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url = uri("https://repo.spring.io/milestone") }
 }
+
+extra["springAiVersion"] = "1.0.0-M2"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.3.2")
@@ -57,8 +60,7 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
 	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
-	implementation ("org.springframework.ai:spring-ai-vertex-ai-gemini-spring-boot-starter")
-	implementation ("org.springframework.ai:spring-ai-vertex-ai-gemini")
+	implementation("org.springframework.ai:spring-ai-vertex-ai-gemini-spring-boot-starter:1.0.0-M2")
 
 	implementation ("org.flywaydb:flyway-core")
 	implementation ("org.flywaydb:flyway-postgresql")

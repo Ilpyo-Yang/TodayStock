@@ -27,6 +27,6 @@ class CompanyInfo(
 
     @Column(nullable = false)
     var publishedDttm: LocalDateTime
-): BaseEntity() {
+): BaseEntity(), MarkerInfo {
 
 }

@@ -5,17 +5,31 @@ import java.time.LocalDateTime
 
 class NewsItem (
     @JsonProperty("title")
-    private val title: String,
+    private val _title: String,
 
     @JsonProperty("originallink")
     private val originallink: String,
 
     @JsonProperty("link")
-    private val link: String,
+    private val _link: String,
 
     @JsonProperty("description")
-    private val description: String,
+    private val _description: String,
 
     @JsonProperty("pubDate")
-    private val pubDate: LocalDateTime
-)
+    private val _pubDate: LocalDateTime
+) {
+    val title: String
+        get() = _title
+
+    val link: String
+        get() = _link
+
+    val description: String
+        get() = _description
+
+    val pubDate: LocalDateTime
+        get() = _pubDate
+
+
+}

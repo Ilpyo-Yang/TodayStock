@@ -46,21 +46,21 @@ class InfoTypeService(
     }
 
     fun createCompanyInfo(request: InfoTypeRequest): InfoTypeResponse? {
-        if(companyRepository.findByNameLike(request.name) != null) {
+        if(companyRepository.findByName(request.name) != null) {
             throw InvalidRequestException("Company with name ${request.name} already exists")
         }
         return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
     }
 
     fun createCountryInfo(request: InfoTypeRequest): InfoTypeResponse? {
-        if(countryRepository.findByNameLike(request.name) != null) {
+        if(countryRepository.findByName(request.name) != null) {
             throw InvalidRequestException("Country with name ${request.name} already exists")
         }
         return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
     }
 
     fun createThemeInfo(request: InfoTypeRequest): InfoTypeResponse? {
-        if(themeRepository.findByNameLike(request.name) != null) {
+        if(themeRepository.findByName(request.name) != null) {
             throw InvalidRequestException("Theme with name ${request.name} already exists")
         }
         return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))

@@ -8,5 +8,5 @@ import java.util.*
 
 @Repository
 interface CountryRepository: JpaRepository<Country, UUID>, KotlinJdslJpqlExecutor {
-    fun findByNameLike(typeName: String): Country?
+    fun findByName(typeName: String): Country?
 }
