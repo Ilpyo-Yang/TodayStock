@@ -36,6 +36,10 @@ spring:
               model: vertex-pro-vision
               temperature: 0.5
 
+prompt:
+  search-info: ${PROMPT_SEARCH_INFO}
+  recap-news: ${PROMPT_RECAP_NEWS}
+
 jwt:
   secret: ${JWT_SECRET}
 
@@ -45,6 +49,7 @@ naver:
     client:
       id: ${NAVER_CLIENT_ID}
       secret: ${NAVER_CLIENT_SECRET}
+      uri: ${NAVER_CLIENT_URI}
 
 sql:
   init:

@@ -1,6 +1,5 @@
 package dev.todaystock.api.chat.controller
 
-import dev.todaystock.api.chat.dto.NewsItemList
 import dev.todaystock.api.chat.dto.SearchRequest
 import dev.todaystock.api.chat.service.SearchService
 import dev.todaystock.api.common.dto.ApiResponse
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/v1/search")
-class ChatController (
+class SearchController (
     private val searchService: SearchService
 ) {
     @GetMapping

@@ -2,6 +2,9 @@ package dev.todaystock.api.search.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 class NewsItem (
     @JsonProperty("title")
@@ -17,7 +20,7 @@ class NewsItem (
     private val _description: String,
 
     @JsonProperty("pubDate")
-    private val _pubDate: LocalDateTime
+    private val _pubDate: String
 ) {
     val title: String
         get() = _title
@@ -29,7 +32,8 @@ class NewsItem (
         get() = _description
 
     val pubDate: LocalDateTime
-        get() = _pubDate
+        get() = ZonedDateTime.parse(_pubDate, DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z"))
+            .withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
 
 
 }
