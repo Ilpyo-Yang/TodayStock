@@ -5,6 +5,7 @@ plugins {
 	kotlin("jvm") version kotlinVersion
 	kotlin("plugin.spring") version kotlinVersion
 	kotlin("plugin.jpa") version kotlinVersion
+	kotlin("plugin.serialization") version kotlinVersion
 }
 
 allOpen {
@@ -22,7 +23,7 @@ version = "1.0.0-SNAPSHOT"
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
 
@@ -48,6 +49,7 @@ dependencies {
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
 	implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.24")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
 	implementation("org.postgresql:postgresql:42.7.2")
 	implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.5.0")

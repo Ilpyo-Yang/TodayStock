@@ -10,6 +10,7 @@ import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.info.entity.MarkerInfo
 import dev.todaystock.api.info.repository.*
 import dev.todaystock.api.search.dto.NewsItem
+import dev.todaystock.api.search.dto.SearchInfoType
 import jakarta.annotation.PostConstruct
 import kotlinx.serialization.json.Json
 import org.springframework.ai.chat.prompt.Prompt
