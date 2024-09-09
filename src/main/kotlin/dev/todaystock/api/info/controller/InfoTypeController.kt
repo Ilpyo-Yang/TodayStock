@@ -29,7 +29,6 @@ class InfoTypeController(
         return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoTypeService.create(infoType, request)))
     }
 
-    // todo user check needed
     @DeleteMapping
     fun delete(@PathVariable infoType: InfoType,
                @RequestBody(required = true) uuid: UUID): ResponseEntity<ApiResponse<out HttpStatus>> {

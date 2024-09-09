@@ -1,6 +1,7 @@
 plugins {
 	val kotlinVersion = "1.9.24"
 	id("org.springframework.boot") version "3.3.2"
+	id("org.asciidoctor.jvm.convert") version "3.3.2"
 	id("io.spring.dependency-management") version "1.1.6"
 	kotlin("jvm") version kotlinVersion
 	kotlin("plugin.spring") version kotlinVersion
@@ -23,7 +24,7 @@ version = "1.0.0-SNAPSHOT"
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
@@ -39,6 +40,7 @@ repositories {
 }
 
 extra["springAiVersion"] = "1.0.0-M2"
+extra["snippetsDir"] = file("build/generated-snippets")
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.3.2")
@@ -70,7 +72,10 @@ dependencies {
 //	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:3.3.2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.2")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.24")
+	testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
+	testImplementation("io.kotest:kotest-assertions-core:5.8.1")
 	testImplementation("org.springframework.security:spring-security-test:6.3.1")
+	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:3.0.1")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.3")
 }
 
@@ -83,4 +88,17 @@ kotlin {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.bootBuildImage {
+	builder.set("paketobuildpacks/builder-jammy-base:latest")
+}
+
+tasks.test {
+	outputs.dir(project.extra["snippetsDir"]!!)
+}
+
+tasks.asciidoctor {
+	inputs.dir(project.extra["snippetsDir"]!!)
+	dependsOn(tasks.test)
 }
