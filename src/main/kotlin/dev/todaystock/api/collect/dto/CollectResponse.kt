@@ -8,16 +8,14 @@ class CollectResponse(
     private val uuid: UUID?,
     private val memberUuid: UUID,
     private val type: InfoType,
-    private val relatedInfoUuid: UUID,
-    private val summary: String
+    private val relatedInfoUuid: UUID
 ) {
     companion object {
         fun fromCollect(collect: Collect): CollectResponse = CollectResponse(
             uuid = collect.uuid,
             memberUuid = collect.memberUuid,
             type = InfoType.valueOf(collect.type),
-            relatedInfoUuid = collect.relatedInfoUuid,
-            summary = collect.summary
+            relatedInfoUuid = collect.relatedInfoUuid
         )
     }
 }

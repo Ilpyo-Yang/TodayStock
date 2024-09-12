@@ -14,8 +14,7 @@ class Collect(
     val uuid: UUID?,
     val memberUuid: UUID,
     val type: String,
-    val relatedInfoUuid: UUID,
-    val summary: String
+    val relatedInfoUuid: UUID
 ): BaseEntity() {
 
 }
