@@ -22,8 +22,8 @@ class InfoTypeRequest(
     @field:NotBlank(message = "Profile cannot be empty")
     private val _profile: String
 ) {
-    val uuid: UUID
-        get() = UUID.fromString(_uuid)
+    val uuid: UUID?
+        get() = _uuid?.let { UUID.fromString(_uuid) }
     val name: String
         get() = _name
     val ticker: String?

@@ -1,6 +1,5 @@
 package dev.todaystock.api.info.service
 
-import dev.todaystock.api.common.exception.InvalidRequestException
 import dev.todaystock.api.info.dto.InfoTypeRequest
 import dev.todaystock.api.info.dto.InfoTypeResponse
 import dev.todaystock.api.info.entity.InfoType
@@ -20,7 +19,10 @@ class InfoTypeService(
 ) {
     fun findAll(infoType: InfoType): List<InfoTypeResponse?> {
         when(infoType) {
-            InfoType.Company -> return InfoTypeResponse.fromCompanies(companyRepository.findAll())
+            InfoType.Company -> {
+                val result = InfoTypeResponse.fromCompanies(companyRepository.findAll())
+                return result
+            }
             InfoType.Country -> return InfoTypeResponse.fromCountries(countryRepository.findAll())
             else -> {
                 return InfoTypeResponse.fromThemes(themeRepository.findAll())
@@ -35,6 +37,7 @@ class InfoTypeService(
 //        return InfoTypeResponse.fromCompany(companyRepository.findByTicker(ticker))
 //    }
 
+    @Transactional
     fun create(infoType: InfoType, request: InfoTypeRequest): InfoTypeResponse? {
         return when(infoType) {
             InfoType.Company -> createCompanyInfo(request)
@@ -46,24 +49,30 @@ class InfoTypeService(
     }
 
     fun createCompanyInfo(request: InfoTypeRequest): InfoTypeResponse? {
-        if(companyRepository.findByName(request.name) != null) {
-            throw InvalidRequestException("Company with name ${request.name} already exists")
+        val company = companyRepository.findByName(request.name).orElse(null)
+        if(company == null) {
+            return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
+        } else {
+            throw NoSuchElementException("Company with name ${request.name} already exists")
         }
-        return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
     }
 
     fun createCountryInfo(request: InfoTypeRequest): InfoTypeResponse? {
-        if(countryRepository.findByName(request.name) != null) {
-            throw InvalidRequestException("Country with name ${request.name} already exists")
+        val country = countryRepository.findByName(request.name).orElse(null)
+        if(country == null) {
+            return InfoTypeResponse.fromCountry(countryRepository.save(InfoTypeRequest.toCountry(request)))
+        } else {
+            throw NoSuchElementException("Company with name ${request.name} already exists")
         }
-        return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
     }
 
     fun createThemeInfo(request: InfoTypeRequest): InfoTypeResponse? {
-        if(themeRepository.findByName(request.name) != null) {
-            throw InvalidRequestException("Theme with name ${request.name} already exists")
+        val theme = themeRepository.findByName(request.name).orElse(null)
+        if(theme == null) {
+            return InfoTypeResponse.fromTheme(themeRepository.save(InfoTypeRequest.toTheme(request)))
+        } else {
+            throw NoSuchElementException("Company with name ${request.name} already exists")
         }
-        return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
     }
 
 
