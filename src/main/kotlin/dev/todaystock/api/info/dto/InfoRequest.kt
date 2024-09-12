@@ -1,5 +1,6 @@
 package dev.todaystock.api.info.dto
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonProperty
 import dev.todaystock.api.info.entity.*
 import jakarta.validation.constraints.NotBlank
@@ -28,6 +29,7 @@ class InfoRequest(
     private val _info: String,
 
     @JsonProperty("pubDate")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @field:NotBlank(message = "PubDate cannot be empty")
     private val _pubDate: String
 ) {
@@ -42,7 +44,7 @@ class InfoRequest(
     val info: String
         get() = _info
     val pubDate: LocalDateTime
-        get() = LocalDateTime.parse(_pubDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"))
+        get() = LocalDateTime.parse(_pubDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
     companion object {
         fun toCompanyInfo(infoRequest: InfoRequest, company: Company): CompanyInfo = CompanyInfo(
