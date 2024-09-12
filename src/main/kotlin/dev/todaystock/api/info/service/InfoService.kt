@@ -33,17 +33,17 @@ class InfoService(
         return when(infoType) {
             InfoType.Company -> {
                 val company = companyRepository.findById(request.typeUuid)
-                    .orElseThrow { NoSuchElementException("NOT registered company uuid") }
+                    .orElseThrow { NoSuchElementException("Company UUID is NOT registered") }
                 InfoResponse.fromCompanyInfo(companyInfoRepository.save(InfoRequest.toCompanyInfo(request, company)))
             }
             InfoType.Country -> {
                 val country = countryRepository.findById(request.typeUuid)
-                    .orElseThrow { NoSuchElementException("NOT registered company uuid") }
+                    .orElseThrow { NoSuchElementException("Country UUID is NOT registered") }
                 InfoResponse.fromCountryInfo(countryInfoRepository.save(InfoRequest.toCountryInfo(request, country)))
             }
             else -> {
                 val theme = themeRepository.findById(request.typeUuid)
-                    .orElseThrow { NoSuchElementException("NOT registered company uuid") }
+                    .orElseThrow { NoSuchElementException("Theme UUID is NOT registered") }
                 InfoResponse.fromThemeInfo(themeInfoRepository.save(InfoRequest.toThemeInfo(request, theme)))
             }
         }
@@ -66,7 +66,7 @@ class InfoService(
             companyInfo.get().deletedDate = LocalDateTime.now()
             return true
         } else {
-            throw IllegalArgumentException("Company Info not found")
+            throw IllegalArgumentException("Company Info NOT found")
         }
     }
 
@@ -76,7 +76,7 @@ class InfoService(
             countryInfo.get().deletedDate = LocalDateTime.now()
             return true
         } else {
-            throw IllegalArgumentException("Country Info not found")
+            throw IllegalArgumentException("Country Info NOT found")
         }
     }
 
@@ -86,7 +86,7 @@ class InfoService(
             themeInfo.get().deletedDate = LocalDateTime.now()
             return true
         } else {
-            throw IllegalArgumentException("Theme Info not found")
+            throw IllegalArgumentException("Theme Info NOT found")
         }
     }
 }

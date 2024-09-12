@@ -1,11 +1,10 @@
 package dev.todaystock.api.info.controller
 
-import dev.todaystock.api.collect.dto.CollectResponse
 import dev.todaystock.api.common.dto.ApiResponse
-import dev.todaystock.api.info.dto.InfoTypeRequest
-import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.common.exception.ErrorCode
+import dev.todaystock.api.info.dto.InfoTypeRequest
 import dev.todaystock.api.info.dto.InfoTypeResponse
+import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.info.service.InfoTypeService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -22,6 +21,7 @@ class InfoTypeController(
         return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoTypeService.findAll(infoType)))
     }
 
+    // admin
     @PostMapping
     fun create(@PathVariable infoType: InfoType,
                @RequestBody request: InfoTypeRequest
@@ -29,6 +29,7 @@ class InfoTypeController(
         return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoTypeService.create(infoType, request)))
     }
 
+    // admin
     @DeleteMapping
     fun delete(@PathVariable infoType: InfoType,
                @RequestBody(required = true) uuid: UUID): ResponseEntity<ApiResponse<out HttpStatus>> {

@@ -6,10 +6,13 @@ import dev.todaystock.api.common.security.TokenProvider
 import dev.todaystock.api.member.dto.MemberRequest
 import dev.todaystock.api.member.dto.MemberResponse
 import dev.todaystock.api.member.dto.SigninRequest
+import dev.todaystock.api.member.entity.Member
 import dev.todaystock.api.member.repository.MemberRepository
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.stereotype.Service
+import java.util.*
+import kotlin.NoSuchElementException
 
 @Service
 class MemberService(
@@ -28,5 +31,9 @@ class MemberService(
         val authenticationToken = UsernamePasswordAuthenticationToken(signinRequest.email, signinRequest.password)
         val authentication = authenticationManagerBuilder.`object`.authenticate(authenticationToken)
         return tokenProvider.createToken(authentication)
+    }
+
+    fun findByEmail(email: String): Member? {
+        return memberRepository.findByEmail(email).orElseThrow { NoSuchElementException("Email is NOT registered") }
     }
 }

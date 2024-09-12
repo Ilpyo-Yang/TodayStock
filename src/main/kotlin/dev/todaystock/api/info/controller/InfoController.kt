@@ -24,6 +24,7 @@ class InfoController(
         return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoService.findByInfoTypeUuid(typeUuid, infoType)))
     }
 
+    // admin
     @PostMapping
     fun create(@PathVariable infoType: InfoType,
                @RequestBody @Valid request: InfoRequest
@@ -31,7 +32,7 @@ class InfoController(
         return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoService.create(infoType, request)))
     }
 
-    // todo user check needed
+    // admin
     @DeleteMapping
     fun delete(@PathVariable infoType: InfoType,
                @RequestBody(required = true) uuid: UUID

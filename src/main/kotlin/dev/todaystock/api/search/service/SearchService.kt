@@ -4,10 +4,7 @@ import com.google.cloud.vertexai.VertexAI
 import dev.todaystock.api.chat.dto.NewsItemList
 import dev.todaystock.api.chat.dto.SearchRequest
 import dev.todaystock.api.common.exception.CustomRuntimeException
-import dev.todaystock.api.info.entity.Company
-import dev.todaystock.api.info.entity.CompanyInfo
-import dev.todaystock.api.info.entity.InfoType
-import dev.todaystock.api.info.entity.MarkerInfo
+import dev.todaystock.api.info.entity.*
 import dev.todaystock.api.info.repository.*
 import dev.todaystock.api.search.dto.NewsItem
 import dev.todaystock.api.search.dto.SearchInfoType
@@ -20,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.toEntity
 
@@ -79,6 +77,8 @@ class SearchService(
                 .build())
     }
 
+    @Transactional
+    // search keyword
     fun searchKeyword(searchRequest: SearchRequest): List<MarkerInfo> {
         val keyword: String = searchRequest.keyword
         val infoType: InfoType = searchRequest.infoType
@@ -87,7 +87,9 @@ class SearchService(
         when(infoType) {
             InfoType.Company -> {
                 val company: Company = companyRepository.findByName(keyword).orElseGet {
-                    searchInfoType(keyword)
+                    val info = searchInfoType(keyword)
+                    val company = Company(null, keyword, info.tickerCode, info.description, null)
+                    companyRepository.save(company)
                 }
 
                 items = searchNews(keyword).body?.items!!
@@ -98,28 +100,53 @@ class SearchService(
                     }
                 }
 
-                return companyInfoRepository.findByCompanyUuid(company!!.uuid!!)
+                return companyInfoRepository.findByCompanyUuid(company.uuid!!)
             }
             InfoType.Country -> {
-                return ArrayList<MarkerInfo>()
+                val country: Country = countryRepository.findByName(keyword).orElseGet {
+                    val info = searchInfoType(keyword)
+                    val country = Country(null, keyword, info.description, null)
+                    countryRepository.save(country)
+                }
+
+                items = searchNews(keyword).body?.items!!
+                if(items.isNotEmpty()) {
+                    for(i in items) {
+                        val info: String = recapNews(i!!.description)?: ""
+                        countryInfoRepository.save(CountryInfo(null, country, i.title, i.link, info, i.pubDate))
+                    }
+                }
+
+                return countryInfoRepository.findByCountryUuid(country.uuid!!)
             }
             else -> {
-                return ArrayList<MarkerInfo>()
+                val theme: Theme = themeRepository.findByName(keyword).orElseGet {
+                    val info = searchInfoType(keyword)
+                    val theme = Theme(null, keyword, info.description, null)
+                    themeRepository.save(theme)
+                }
+
+                items = searchNews(keyword).body?.items!!
+                if(items.isNotEmpty()) {
+                    for(i in items) {
+                        val info: String = recapNews(i!!.description)?: ""
+                        themeInfoRepository.save(ThemeInfo(null, theme, i.title, i.link, info, i.pubDate))
+                    }
+                }
+
+                return themeInfoRepository.findByThemeUuid(theme.uuid!!)
             }
         }
     }
 
-    // prompt를 두 개 만들어놔야겠지?
-    fun searchInfoType(keyword: String): Company {
+    // find info type information
+    fun searchInfoType(keyword: String): SearchInfoType {
         val result = chatModel.call(Prompt(keyword + searchInfoPrompt)).result.output.content
         val json = result.substring(result.indexOf("{"), result.lastIndexOf("}")+1)
-        val companyInfo = Json{ ignoreUnknownKeys = true }.decodeFromString<SearchInfoType>(json)
-
-        val company = Company(null, keyword, companyInfo.tickerCode, companyInfo.description, null)
-        companyRepository.save(company)
-        return company
+        return Json{ ignoreUnknownKeys = true }.decodeFromString<SearchInfoType>(json)
     }
 
+    // find related recent news
     fun searchNews(keyword: String): ResponseEntity<NewsItemList> {
         return naverClient.get()
             .uri(clientUri, keyword)
@@ -129,6 +156,7 @@ class SearchService(
             .toEntity<NewsItemList>()
     }
 
+    // find additional news info
     fun recapNews(description: String): String? {
         return chatModel.call(Prompt(description + recapNewsPrompt)).result.output.content
     }
