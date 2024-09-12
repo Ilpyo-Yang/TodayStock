@@ -62,31 +62,22 @@ class InfoService(
 
     fun deleteCompanyInfo(uuid: UUID): Boolean {
         val companyInfo = companyInfoRepository.findById(uuid)
-        if (companyInfo.isPresent) {
-            companyInfo.get().deletedDate = LocalDateTime.now()
-            return true
-        } else {
-            throw IllegalArgumentException("Company Info NOT found")
-        }
+            .orElseThrow{ NoSuchElementException("Company UUID is NOT registered") }
+        companyInfo.deletedDate = LocalDateTime.now()
+        return true
     }
 
     fun deleteCountryInfo(uuid: UUID): Boolean {
         val countryInfo = countryInfoRepository.findById(uuid)
-        if (countryInfo.isPresent) {
-            countryInfo.get().deletedDate = LocalDateTime.now()
-            return true
-        } else {
-            throw IllegalArgumentException("Country Info NOT found")
-        }
+            .orElseThrow{ NoSuchElementException("Country UUID is NOT registered") }
+        countryInfo.deletedDate = LocalDateTime.now()
+        return true
     }
 
     fun deleteThemeInfo(uuid: UUID): Boolean {
         val themeInfo = themeInfoRepository.findById(uuid)
-        if (themeInfo.isPresent) {
-            themeInfo.get().deletedDate = LocalDateTime.now()
-            return true
-        } else {
-            throw IllegalArgumentException("Theme Info NOT found")
-        }
+            .orElseThrow{ NoSuchElementException("Theme UUID is NOT registered") }
+        themeInfo.deletedDate = LocalDateTime.now()
+        return true
     }
 }

@@ -7,13 +7,9 @@ import dev.todaystock.api.info.dto.InfoRequest
 import dev.todaystock.api.info.dto.InfoTypeRequest
 import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.info.repository.CompanyRepository
-import dev.todaystock.api.info.service.InfoTypeService
 import dev.todaystock.api.member.dto.MemberRequest
 import dev.todaystock.api.member.dto.SigninRequest
-import dev.todaystock.api.member.service.MemberService
-import io.kotest.core.spec.style.AnnotationSpec.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -29,26 +25,25 @@ import java.util.*
 
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "localhost")
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @DisplayName("API 테스트")
 class ApiControllerTest(
     private var mockMvc: MockMvc,
-    private var mapper: ObjectMapper,
-    private val memberService: MemberService,
-    private val infoTypeService: InfoTypeService,
+    private var mapper: ObjectMapper
 ) {
     @Autowired
     private lateinit var companyRepository: CompanyRepository
-    private val searchUrl = "/v1/search"
-    private val memberUrl = "/v1/member"
-    private val infoUrl = "/v1/info/{infoType}/detail"
-    private val infoTypeUrl = "/v1/info/{infoType}"
-    private val collectUrl = "/v1/collect"
+    private val searchUrl: String = "/v1/search"
+    private val memberUrl: String = "/v1/member"
+    private val infoUrl: String = "/v1/info/{infoType}/detail"
+    private val infoTypeUrl: String = "/v1/info/{infoType}"
+    private val collectUrl: String = "/v1/collect"
 
-    private val email = "test@gmail.com"
-    private val password = "qwer123!@#"
+    private val email: String = "stock@gmail.com"
+    private val password: String = "qwer123!@#"
 
     private var token: String? = null
     private var memberUuid: String = UUID.randomUUID().toString()
@@ -59,7 +54,7 @@ class ApiControllerTest(
     @BeforeEach
     fun beforeEachTest() {
         // signin before tests
-        val content = SigninRequest(email, password)
+        val content = SigninRequest("test@gmail.com", password)
 
         val loginResponse = mockMvc.perform(
             RestDocumentationRequestBuilders.post(memberUrl+"/signin")
@@ -81,9 +76,10 @@ class ApiControllerTest(
 //    member api test
 
     @Test
+    @Order(1)
     @DisplayName("회원가입 테스트")
     fun signup() {
-        val content = MemberRequest(memberUuid, "stock@gmail.com", password, null, "mockmvc", null, null)
+        val content = MemberRequest(memberUuid, email, password, null, "mockmvc", null, null)
 
         mockMvc.perform(
             RestDocumentationRequestBuilders.post(memberUrl+"/signup")
@@ -98,9 +94,10 @@ class ApiControllerTest(
     }
 
     @Test
+    @Order(2)
     @DisplayName("로그인 테스트")
     fun signin() {
-        val content = SigninRequest("test@gmail.com", "qwer123!@#")
+        val content = SigninRequest(email, password)
 
         mockMvc.perform(
             RestDocumentationRequestBuilders.post(memberUrl+"/signin")
@@ -114,28 +111,31 @@ class ApiControllerTest(
         )
     }
 
-
-
-//    infoType api test
-
     @Test
-    @DisplayName("정보유형 조회 테스트")
-    fun findByInfoType() {
+    @Order(3)
+    @DisplayName("회원삭제 테스트")
+    fun deleteMember() {
         mockMvc.perform(
-            RestDocumentationRequestBuilders.get(infoTypeUrl, InfoType.Company)
-                .header("Authorization", "Bearer $token")
+            RestDocumentationRequestBuilders.delete(memberUrl)
+                .content(email)
+                .contentType("application/json")
         ).andDo(
-            document("findByInfoType")
+            document("signup")
         ).andExpectAll(
             status().isOk,
             content().contentType(MediaType.APPLICATION_JSON),
         )
     }
 
+
+
+//    info api test
+
     @Test
+    @Order(4)
     @DisplayName("정보유형 생성 테스트")
     fun createInfoType() {
-        val content = InfoTypeRequest(infoTypeUuid, "test", "ticker", "profile")
+        val content = InfoTypeRequest(infoTypeUuid, infoTypeUuid, "ticker", "profile")
 
         mockMvc.perform(
             RestDocumentationRequestBuilders.post(infoTypeUrl, InfoType.Company)
@@ -151,13 +151,12 @@ class ApiControllerTest(
     }
 
     @Test
-    @DisplayName("정보유형 삭제 테스트")
-    fun deleteInfoType() {
+    @Order(5)
+    @DisplayName("정보유형 조회 테스트")
+    fun findByInfoType() {
         mockMvc.perform(
-            RestDocumentationRequestBuilders.delete(infoTypeUrl, InfoType.Company)
+            RestDocumentationRequestBuilders.get(infoTypeUrl, InfoType.Company)
                 .header("Authorization", "Bearer $token")
-                .content(ObjectMapper().writeValueAsString("b86b9c55-485d-491e-b2ab-2ab7f8caefdb"))
-                .contentType("application/json")
         ).andDo(
             document("findByInfoType")
         ).andExpectAll(
@@ -166,26 +165,8 @@ class ApiControllerTest(
         )
     }
 
-
-//    info api test
-
     @Test
-    @DisplayName("정보유형으로 정보 조회 테스트")
-    fun findByInfoTypeUuid() {
-        mockMvc.perform(
-            RestDocumentationRequestBuilders.get(infoUrl, InfoType.Company)
-                .header("Authorization", "Bearer $token")
-                .content(ObjectMapper().writeValueAsString("b86b9c55-485d-491e-b2ab-2ab7f8caefdb"))
-                .contentType("application/json")
-        ).andDo(
-            document("findByInfoTypeUuid")
-        ).andExpectAll(
-            status().isOk,
-            content().contentType(MediaType.APPLICATION_JSON),
-        )
-    }
-
-    @Test
+    @Order(6)
     @DisplayName("정보 생성 테스트")
     fun createInfo() {
         val content = InfoRequest(infoUuid, "b86b9c55-485d-491e-b2ab-2ab7f8caefdb", "infoTitle",
@@ -205,15 +186,50 @@ class ApiControllerTest(
     }
 
     @Test
+    @Order(7)
+    @DisplayName("정보유형으로 정보 조회 테스트")
+    fun findByInfoTypeUuid() {
+        mockMvc.perform(
+            RestDocumentationRequestBuilders.get(infoUrl, InfoType.Company)
+                .header("Authorization", "Bearer $token")
+                .content(mapper.writeValueAsString(infoTypeUuid))
+                .contentType("application/json")
+        ).andDo(
+            document("findByInfoTypeUuid")
+        ).andExpectAll(
+            status().isOk,
+            content().contentType(MediaType.APPLICATION_JSON),
+        )
+    }
+
+    @Test
+    @Order(8)
     @DisplayName("정보 삭제 테스트")
     fun deleteInfo() {
         mockMvc.perform(
             RestDocumentationRequestBuilders.delete(infoUrl, InfoType.Company)
                 .header("Authorization", "Bearer $token")
-                .content(mapper.writeValueAsString("dc5b9851-89ea-4a74-bb15-a51b0c68fab3"))
+                .content(mapper.writeValueAsString(infoUuid))
                 .contentType("application/json")
         ).andDo(
             document("deleteInfo")
+        ).andExpectAll(
+            status().isOk,
+            content().contentType(MediaType.APPLICATION_JSON),
+        )
+    }
+
+    @Test
+    @Order(9)
+    @DisplayName("정보유형 삭제 테스트")
+    fun deleteInfoType() {
+        mockMvc.perform(
+            RestDocumentationRequestBuilders.delete(infoTypeUrl, InfoType.Company)
+                .header("Authorization", "Bearer $token")
+                .content(mapper.writeValueAsString(infoTypeUuid))
+                .contentType("application/json")
+        ).andDo(
+            document("deleteInfoType")
         ).andExpectAll(
             status().isOk,
             content().contentType(MediaType.APPLICATION_JSON),
@@ -225,6 +241,7 @@ class ApiControllerTest(
 //    search api test
 
     @Test
+    @Order(10)
     @DisplayName("뉴스 검색 및 정보 저장 테스트")
     fun searchInfo() {
         val content = SearchRequest("삼성전자", "Company")
@@ -246,6 +263,7 @@ class ApiControllerTest(
 
 //    collect api test
     @Test
+    @Order(11)
     @DisplayName("회원이 저장한 collect 종류 조회 테스트")
     fun findByMemberUuid() {
         mockMvc.perform(
@@ -262,6 +280,7 @@ class ApiControllerTest(
     }
 
     @Test
+    @Order(12)
     @DisplayName("회원이 저장한 특정 정보타입 collect 종류 조회 테스트")
     fun findByMemberUuidAndType() {
         mockMvc.perform(
@@ -279,6 +298,7 @@ class ApiControllerTest(
     }
 
     @Test
+    @Order(13)
     @DisplayName("collect 생성 테스트")
     fun createCollect() {
         val content = CollectRequest(null, memberUuid, "Company", infoUuid)

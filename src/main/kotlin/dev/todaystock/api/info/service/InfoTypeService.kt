@@ -93,7 +93,7 @@ class InfoTypeService(
             company.get().deletedDate = LocalDateTime.now()
             return true
         } else {
-            throw IllegalArgumentException("Company Info not found")
+            throw IllegalArgumentException("Company Info NOT found")
         }
     }
 
@@ -103,7 +103,7 @@ class InfoTypeService(
             country.get().deletedDate = LocalDateTime.now()
             return true
         } else {
-            throw IllegalArgumentException("Country Info not found")
+            throw IllegalArgumentException("Country Info NOT found")
         }
     }
 
@@ -113,7 +113,7 @@ class InfoTypeService(
             theme.get().deletedDate = LocalDateTime.now()
             return true
         } else {
-            throw IllegalArgumentException("Theme Info not found")
+            throw IllegalArgumentException("Theme Info NOT found")
         }
     }
 }
