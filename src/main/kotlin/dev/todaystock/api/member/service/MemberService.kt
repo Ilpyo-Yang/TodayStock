@@ -33,6 +33,12 @@ class MemberService(
         return tokenProvider.createToken(authentication)
     }
 
+    fun delete(email: String) {
+        val member: Member = memberRepository.findByEmail(email)
+            .orElseThrow { NoSuchElementException("Inappropriate Request") }
+        return memberRepository.delete(member)
+    }
+
     fun findByEmail(email: String): Member? {
         return memberRepository.findByEmail(email).orElseThrow { NoSuchElementException("Email is NOT registered") }
     }
