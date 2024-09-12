@@ -66,8 +66,7 @@ dependencies {
 
 	implementation("org.springframework.ai:spring-ai-vertex-ai-gemini-spring-boot-starter:1.0.0-M2")
 
-	implementation ("org.flywaydb:flyway-core")
-	implementation ("org.flywaydb:flyway-postgresql")
+	implementation ("org.flywaydb:flyway-core:10.10.0")
 
 //	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:3.3.2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.2")
