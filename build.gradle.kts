@@ -36,7 +36,8 @@ repositories {
 extra["springAiVersion"] = "1.0.0-M2"
 
 val snippetsDir = file("build/generated-snippets")
-val asciidoctorExt = configurations.create("asciidoctorExt") {
+val asciidoctorExt = "asciidoctorExt"
+configurations.create(asciidoctorExt) {
 	extendsFrom(configurations.testImplementation.get())
 }
 
@@ -90,9 +91,6 @@ tasks.test {
 }
 
 tasks.asciidoctor {
-	doFirst{
-		delete("src/main/resources/static/docs")
-	}
 	inputs.dir(snippetsDir)
 	dependsOn(tasks.test)
 	configurations(asciidoctorExt)
@@ -101,9 +99,15 @@ tasks.asciidoctor {
 	}
 }
 
-tasks.bootJar {
+val copyDocument = tasks.register<Copy>("copyDocument") {
 	dependsOn(tasks.asciidoctor)
-	from(snippetsDir) {
-		into("src/main/resources/static/docs")
+	doFirst {
+		delete(file("src/main/resources/static/docs"))
 	}
+	from(file("build/docs/asciidoc"))
+	into(file("src/main/resources/static/docs"))
+}
+
+tasks.build {
+	dependsOn(copyDocument)
 }
