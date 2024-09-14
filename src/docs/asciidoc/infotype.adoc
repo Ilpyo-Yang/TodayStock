@@ -1,0 +1,27 @@
+== InfoType API
+
+=== 정보유형 생성
+
+=== Request
+operation::createInfoType[snippets='http-request,request-body']
+
+==== Response
+operation::createInfoType[snippets='http-response,response-body']
+
+
+=== 정보유형 조회
+
+=== Request
+operation::findByInfoType[snippets='http-request,request-body']
+
+==== Response
+operation::findByInfoType[snippets='http-response,response-body']
+
+
+=== 정보유형 삭제
+
+=== Request
+operation::deleteInfoType[snippets='http-request,request-body']
+
+==== Response
+operation::deleteInfoType[snippets='http-response,response-body']

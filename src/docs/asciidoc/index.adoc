@@ -1,0 +1,13 @@
+// index.adoc
+= TodayStock API Specification
+:doctype: book
+:source-highlighter: highlightjs
+:sectlinks:
+:toc: left
+:toclevels: 3
+
+include::member.adoc[]
+include::infotype.adoc[]
+include::info.adoc[]
+include::search.adoc[]
+include::collect.adoc[]

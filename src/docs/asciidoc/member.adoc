@@ -1,0 +1,27 @@
+== Member API
+
+=== 회원가입
+
+=== Request
+operation::signup[snippets='http-request,request-body']
+
+==== Response
+operation::signup[snippets='http-response,response-body']
+
+
+=== 로그인
+
+=== Request
+operation::signin[snippets='http-request,request-body']
+
+==== Response
+operation::signin[snippets='http-response,response-body']
+
+
+=== 회원삭제 (admin)
+
+=== Request
+operation::deleteMember[snippets='http-request,request-body']
+
+==== Response
+operation::deleteMember[snippets='http-response,response-body']

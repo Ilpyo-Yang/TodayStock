@@ -1,0 +1,27 @@
+== Collect API
+
+=== 회원이 만든 콜렉션 종류 조회 (token 필요)
+
+=== Request
+operation::findCollectByMemberUuid[snippets='http-request,request-body']
+
+==== Response
+operation::findCollectByMemberUuid[snippets='http-response,response-body']
+
+
+=== 회원의 특정 콜렉션 조회  (token 필요)
+
+=== Request
+operation::findCollectByMemberUuidAndType[snippets='http-request,request-body']
+
+==== Response
+operation::findCollectByMemberUuidAndType[snippets='http-response,response-body']
+
+
+=== 콜렉션 생성 (token 필요)
+
+=== Request
+operation::createCollect[snippets='http-request,request-body']
+
+==== Response
+operation::createCollect[snippets='http-response,response-body']

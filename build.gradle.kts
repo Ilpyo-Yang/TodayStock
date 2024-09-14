@@ -28,19 +28,17 @@ java {
 	}
 }
 
-configurations {
-	compileOnly {
-		extendsFrom(configurations.annotationProcessor.get())
-	}
-}
-
 repositories {
 	mavenCentral()
 	maven { url = uri("https://repo.spring.io/milestone") }
 }
 
 extra["springAiVersion"] = "1.0.0-M2"
-extra["snippetsDir"] = file("build/generated-snippets")
+
+val snippetsDir = file("build/generated-snippets")
+val asciidoctorExt = configurations.create("asciidoctorExt") {
+	extendsFrom(configurations.testImplementation.get())
+}
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.3.2")
@@ -75,6 +73,7 @@ dependencies {
 	testImplementation("io.kotest:kotest-assertions-core:5.8.1")
 	testImplementation("org.springframework.security:spring-security-test:6.3.1")
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:3.0.1")
+	asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.3")
 }
 
@@ -85,19 +84,26 @@ kotlin {
 	jvmToolchain(21)
 }
 
-tasks.withType<Test> {
+tasks.test {
+	outputs.dir(snippetsDir)
 	useJUnitPlatform()
 }
 
-tasks.bootBuildImage {
-	builder.set("paketobuildpacks/builder-jammy-base:latest")
-}
-
-tasks.test {
-	outputs.dir(project.extra["snippetsDir"]!!)
-}
-
 tasks.asciidoctor {
-	inputs.dir(project.extra["snippetsDir"]!!)
+	doFirst{
+		delete("src/main/resources/static/docs")
+	}
+	inputs.dir(snippetsDir)
 	dependsOn(tasks.test)
+	configurations(asciidoctorExt)
+	sources{
+		include("**/index.adoc")
+	}
+}
+
+tasks.bootJar {
+	dependsOn(tasks.asciidoctor)
+	from(snippetsDir) {
+		into("src/main/resources/static/docs")
+	}
 }
