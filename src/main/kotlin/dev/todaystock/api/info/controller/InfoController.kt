@@ -21,7 +21,7 @@ class InfoController(
     fun findByInfoTypeUuid(@PathVariable infoType: InfoType,
                            @RequestBody(required = true) typeUuid: UUID
     ): ResponseEntity<ApiResponse<List<InfoResponse?>>> {
-        return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoService.findByInfoTypeUuid(typeUuid, infoType)))
+        return ResponseEntity.ok(ApiResponse.successDataResponse(infoService.findByInfoTypeUuid(typeUuid, infoType)))
     }
 
     // admin
@@ -29,7 +29,7 @@ class InfoController(
     fun create(@PathVariable infoType: InfoType,
                @RequestBody @Valid request: InfoRequest
     ): ResponseEntity<ApiResponse<InfoResponse?>> {
-        return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoService.create(infoType, request)))
+        return ResponseEntity.ok(ApiResponse.successDataResponse(infoService.create(infoType, request)))
     }
 
     // admin

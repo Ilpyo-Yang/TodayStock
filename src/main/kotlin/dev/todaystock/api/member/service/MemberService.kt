@@ -11,8 +11,6 @@ import dev.todaystock.api.member.repository.MemberRepository
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.stereotype.Service
-import java.util.*
-import kotlin.NoSuchElementException
 
 @Service
 class MemberService(
@@ -21,10 +19,9 @@ class MemberService(
     private val tokenProvider: TokenProvider
 ) {
     fun signup(request: MemberRequest): MemberResponse? {
-        if (memberRepository.findByEmail(request.email).isPresent) {
-            throw InvalidRequestException("Email")
-        }
-        return MemberResponse.fromMember(memberRepository.save(MemberRequest.toMember(request)))
+        memberRepository.findByEmail(request.email)
+            ?.let { throw InvalidRequestException("Email") }
+            ?: return MemberResponse.fromMember(memberRepository.save(MemberRequest.toMember(request)))
     }
 
     fun signin(signinRequest: SigninRequest): TokenDto {
@@ -34,12 +31,14 @@ class MemberService(
     }
 
     fun delete(email: String) {
-        val member: Member = memberRepository.findByEmail(email)
-            .orElseThrow { NoSuchElementException("Inappropriate Request") }
-        return memberRepository.delete(member)
+        memberRepository.findByEmail(email)
+            ?.let { return memberRepository.delete(it) }
+            ?: throw NoSuchElementException("Inappropriate Request")
     }
 
     fun findByEmail(email: String): Member? {
-        return memberRepository.findByEmail(email).orElseThrow { NoSuchElementException("Email is NOT registered") }
+        memberRepository.findByEmail(email)
+            ?.let { return it }
+            ?: throw NoSuchElementException("Inappropriate Request")
     }
 }

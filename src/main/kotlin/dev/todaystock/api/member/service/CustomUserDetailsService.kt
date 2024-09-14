@@ -16,7 +16,7 @@ class CustomUserDetailsService(
     private val passwordEncoder: PasswordEncoder
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails =
-        memberRepository.findByEmail(username).orElseThrow()
+        memberRepository.findByEmail(username)
             ?.let { createUserDetails(it) }
             ?: throw UsernameNotFoundException("There is no matching user")
 

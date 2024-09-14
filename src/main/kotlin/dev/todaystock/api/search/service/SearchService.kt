@@ -86,55 +86,58 @@ class SearchService(
 
         when(infoType) {
             InfoType.Company -> {
-                val company: Company = companyRepository.findByName(keyword).orElseGet {
+                var company: Company? = companyRepository.findByName(keyword)
+                company?: {
                     val info = searchInfoType(keyword)
-                    val company = Company(null, keyword, info.tickerCode, info.description, null)
-                    companyRepository.save(company)
+                    company = Company(null, keyword, info.tickerCode, info.description, null)
+                    companyRepository.save(company!!)
                 }
 
                 items = searchNews(keyword).body?.items!!
                 if(items.isNotEmpty()) {
                     for(i in items) {
                         val info: String = recapNews(i!!.description)?: ""
-                        companyInfoRepository.save(CompanyInfo(null, company, i.title, i.link, info, i.pubDate))
+                        companyInfoRepository.save(CompanyInfo(null, company!!, i.title, i.link, info, i.pubDate))
                     }
                 }
 
-                return companyInfoRepository.findByCompanyUuid(company.uuid!!)
+                return companyInfoRepository.findByCompanyUuid(company!!.uuid!!)
             }
             InfoType.Country -> {
-                val country: Country = countryRepository.findByName(keyword).orElseGet {
+                var country: Country? = countryRepository.findByName(keyword)
+                country?: {
                     val info = searchInfoType(keyword)
-                    val country = Country(null, keyword, info.description, null)
-                    countryRepository.save(country)
+                    country = Country(null, keyword, info.description, null)
+                    countryRepository.save(country!!)
                 }
 
                 items = searchNews(keyword).body?.items!!
                 if(items.isNotEmpty()) {
                     for(i in items) {
                         val info: String = recapNews(i!!.description)?: ""
-                        countryInfoRepository.save(CountryInfo(null, country, i.title, i.link, info, i.pubDate))
+                        countryInfoRepository.save(CountryInfo(null, country!!, i.title, i.link, info, i.pubDate))
                     }
                 }
 
-                return countryInfoRepository.findByCountryUuid(country.uuid!!)
+                return countryInfoRepository.findByCountryUuid(country!!.uuid!!)
             }
             else -> {
-                val theme: Theme = themeRepository.findByName(keyword).orElseGet {
+                var theme: Theme? = themeRepository.findByName(keyword)
+                theme?: {
                     val info = searchInfoType(keyword)
-                    val theme = Theme(null, keyword, info.description, null)
-                    themeRepository.save(theme)
+                    theme = Theme(null, keyword, info.description, null)
+                    themeRepository.save(theme!!)
                 }
 
                 items = searchNews(keyword).body?.items!!
                 if(items.isNotEmpty()) {
                     for(i in items) {
                         val info: String = recapNews(i!!.description)?: ""
-                        themeInfoRepository.save(ThemeInfo(null, theme, i.title, i.link, info, i.pubDate))
+                        themeInfoRepository.save(ThemeInfo(null, theme!!, i.title, i.link, info, i.pubDate))
                     }
                 }
 
-                return themeInfoRepository.findByThemeUuid(theme.uuid!!)
+                return themeInfoRepository.findByThemeUuid(theme!!.uuid!!)
             }
         }
     }

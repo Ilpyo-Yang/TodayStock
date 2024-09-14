@@ -9,6 +9,6 @@ import java.util.*
 
 @Repository
 interface CountryRepository: JpaRepository<Country, UUID>, KotlinJdslJpqlExecutor {
-    fun findByName(typeName: String): Optional<Country>
+    fun findByName(typeName: String): Country?
     fun findTopByOrderByCreatedDateDesc(): Country
 }

@@ -33,8 +33,8 @@ class InfoRequest(
     @field:NotBlank(message = "PubDate cannot be empty")
     private val _pubDate: String
 ) {
-    val uuid: UUID
-        get() = UUID.fromString(_uuid)
+    val uuid: UUID?
+        get() = _uuid?.let { UUID.fromString(_uuid) }
     val typeUuid: UUID
         get() = UUID.fromString(_typeUuid)
     val title: String

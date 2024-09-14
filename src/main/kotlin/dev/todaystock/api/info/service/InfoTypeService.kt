@@ -19,10 +19,7 @@ class InfoTypeService(
 ) {
     fun findAll(infoType: InfoType): List<InfoTypeResponse?> {
         when(infoType) {
-            InfoType.Company -> {
-                val result = InfoTypeResponse.fromCompanies(companyRepository.findAll())
-                return result
-            }
+            InfoType.Company -> return InfoTypeResponse.fromCompanies(companyRepository.findAll())
             InfoType.Country -> return InfoTypeResponse.fromCountries(countryRepository.findAll())
             else -> {
                 return InfoTypeResponse.fromThemes(themeRepository.findAll())
@@ -30,90 +27,47 @@ class InfoTypeService(
         }
     }
 
-//    fun findCompanyTicker(ticker: String): InfoTypeResponse? {
-//        if(ticker == null) {
-//            throw BadRequestException("Company ticker needed!")
-//        }
-//        return InfoTypeResponse.fromCompany(companyRepository.findByTicker(ticker))
-//    }
-
     @Transactional
     fun create(infoType: InfoType, request: InfoTypeRequest): InfoTypeResponse? {
-        return when(infoType) {
-            InfoType.Company -> createCompanyInfo(request)
-            InfoType.Country -> createCountryInfo(request)
+        when(infoType) {
+            InfoType.Company -> {
+                companyRepository.findByName(request.name)
+                    ?.let { throw NoSuchElementException("Company with name ${request.name} already exists") }
+                    ?: return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
+            }
+            InfoType.Country -> {
+                countryRepository.findByName(request.name)
+                    ?.let { throw NoSuchElementException("Country with name ${request.name} already exists") }
+                    ?: return InfoTypeResponse.fromCountry(countryRepository.save(InfoTypeRequest.toCountry(request)))
+
+            }
             else -> {
-                createThemeInfo(request)
+                themeRepository.findByName(request.name)
+                    ?.let { throw NoSuchElementException("Theme with name ${request.name} already exists") }
+                    ?: return InfoTypeResponse.fromTheme(themeRepository.save(InfoTypeRequest.toTheme(request)))
             }
         }
     }
-
-    fun createCompanyInfo(request: InfoTypeRequest): InfoTypeResponse? {
-        val company = companyRepository.findByName(request.name).orElse(null)
-        if(company == null) {
-            return InfoTypeResponse.fromCompany(companyRepository.save(InfoTypeRequest.toCompany(request)))
-        } else {
-            throw NoSuchElementException("Company with name ${request.name} already exists")
-        }
-    }
-
-    fun createCountryInfo(request: InfoTypeRequest): InfoTypeResponse? {
-        val country = countryRepository.findByName(request.name).orElse(null)
-        if(country == null) {
-            return InfoTypeResponse.fromCountry(countryRepository.save(InfoTypeRequest.toCountry(request)))
-        } else {
-            throw NoSuchElementException("Company with name ${request.name} already exists")
-        }
-    }
-
-    fun createThemeInfo(request: InfoTypeRequest): InfoTypeResponse? {
-        val theme = themeRepository.findByName(request.name).orElse(null)
-        if(theme == null) {
-            return InfoTypeResponse.fromTheme(themeRepository.save(InfoTypeRequest.toTheme(request)))
-        } else {
-            throw NoSuchElementException("Company with name ${request.name} already exists")
-        }
-    }
-
 
     @Transactional
     fun delete(infoType: InfoType, uuid: UUID): Boolean {
-        return when(infoType) {
-            InfoType.Company -> deleteCompany(uuid)
-            InfoType.Country -> deleteCountry(uuid)
+        when(infoType) {
+            InfoType.Company -> {
+                var company = companyRepository.findById(uuid)
+                    .orElseThrow { IllegalArgumentException("Company Info NOT found") }
+                company.deletedDate = LocalDateTime.now()
+            }
+            InfoType.Country -> {
+                var country = countryRepository.findById(uuid)
+                    .orElseThrow { IllegalArgumentException("Country Info NOT found") }
+                country.deletedDate = LocalDateTime.now()
+            }
             else -> {
-                deleteTheme(uuid)
+                var theme = themeRepository.findById(uuid)
+                    .orElseThrow { IllegalArgumentException("Theme Info NOT found") }
+                theme.deletedDate = LocalDateTime.now()
             }
         }
-    }
-
-    fun deleteCompany(uuid: UUID): Boolean {
-        val company = companyRepository.findById(uuid)
-        if (company.isPresent) {
-            company.get().deletedDate = LocalDateTime.now()
-            return true
-        } else {
-            throw IllegalArgumentException("Company Info NOT found")
-        }
-    }
-
-    fun deleteCountry(uuid: UUID): Boolean {
-        val country = countryRepository.findById(uuid)
-        if (country.isPresent) {
-            country.get().deletedDate = LocalDateTime.now()
-            return true
-        } else {
-            throw IllegalArgumentException("Country Info NOT found")
-        }
-    }
-
-    fun deleteTheme(uuid: UUID): Boolean {
-        val theme = themeRepository.findById(uuid)
-        if (theme.isPresent) {
-            theme.get().deletedDate = LocalDateTime.now()
-            return true
-        } else {
-            throw IllegalArgumentException("Theme Info NOT found")
-        }
+        return true
     }
 }

@@ -8,7 +8,7 @@ import java.util.*
 
 @Repository
 interface CompanyRepository: JpaRepository<Company, UUID>, KotlinJdslJpqlExecutor {
-    fun findByName(name: String): Optional<Company>
-    fun findByTicker(ticker: String): Optional<Company>
+    fun findByName(name: String): Company?
+    fun findByTicker(ticker: String): Company?
     fun findTopByOrderByCreatedDateDesc(): Company
 }

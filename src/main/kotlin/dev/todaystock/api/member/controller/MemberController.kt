@@ -21,19 +21,19 @@ class MemberController(
 ) {
     @PostMapping("/signup")
     fun signup(@RequestBody(required = true) @Valid memberRequest: MemberRequest): ResponseEntity<ApiResponse<MemberResponse>> {
-        return ResponseEntity.ok().body(ApiResponse.successDataResponse(memberService.signup(memberRequest)))
+        return ResponseEntity.ok(ApiResponse.successDataResponse(memberService.signup(memberRequest)))
     }
 
     @PostMapping("/signin")
     fun signup(@RequestBody(required = true) @Valid signinRequest: SigninRequest): ResponseEntity<ApiResponse<TokenDto>> {
-        return ResponseEntity.ok().body(ApiResponse.successDataResponse(memberService.signin(signinRequest)))
+        return ResponseEntity.ok(ApiResponse.successDataResponse(memberService.signin(signinRequest)))
     }
 
     // admin
     @DeleteMapping
     fun signup(@RequestBody(required = true) email: String): ResponseEntity<ApiResponse<Nothing>> {
         memberService.delete(email)
-        return ResponseEntity.ok().body(ApiResponse.successResponse())
+        return ResponseEntity.ok(ApiResponse.successResponse())
     }
 
 //    @GetMapping

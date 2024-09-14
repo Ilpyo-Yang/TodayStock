@@ -33,20 +33,20 @@ class InfoTypeRequest(
 
     companion object {
         fun toCompany(infoRequest: InfoTypeRequest): Company = Company(
-            uuid = infoRequest.uuid ,
+            uuid = infoRequest.uuid,
             name = infoRequest.name,
-            ticker = infoRequest.ticker.let { "" },
+            ticker = infoRequest.ticker?: "",
             profile = infoRequest.profile
         )
 
         fun toCountry(infoRequest: InfoTypeRequest): Country = Country(
-            uuid = infoRequest.uuid ,
+            uuid = infoRequest.uuid,
             name = infoRequest.name,
             profile = infoRequest.profile
         )
 
         fun toTheme(infoRequest: InfoTypeRequest): Theme = Theme(
-            uuid = infoRequest.uuid ,
+            uuid = infoRequest.uuid,
             name = infoRequest.name,
             profile = infoRequest.profile
         )

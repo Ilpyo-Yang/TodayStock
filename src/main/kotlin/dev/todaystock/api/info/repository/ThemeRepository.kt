@@ -8,6 +8,6 @@ import java.util.*
 
 @Repository
 interface ThemeRepository: JpaRepository<Theme, UUID>, KotlinJdslJpqlExecutor {
-    fun findByName(name: String): Optional<Theme>
+    fun findByName(name: String): Theme?
     fun findTopByOrderByCreatedDateDesc(): Theme
 }

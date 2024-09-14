@@ -1,11 +1,14 @@
 package dev.todaystock.api.info.controller
 
+import dev.todaystock.api.collect.dto.CollectRequest
+import dev.todaystock.api.collect.dto.CollectResponse
 import dev.todaystock.api.common.dto.ApiResponse
 import dev.todaystock.api.common.exception.ErrorCode
 import dev.todaystock.api.info.dto.InfoTypeRequest
 import dev.todaystock.api.info.dto.InfoTypeResponse
 import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.info.service.InfoTypeService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -18,15 +21,14 @@ class InfoTypeController(
 ) {
     @GetMapping
     fun findByInfoType(@PathVariable infoType: InfoType): ResponseEntity<ApiResponse<List<InfoTypeResponse?>>> {
-        return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoTypeService.findAll(infoType)))
+        return ResponseEntity.ok(ApiResponse.successDataResponse(infoTypeService.findAll(infoType)))
     }
 
-    // admin
     @PostMapping
     fun create(@PathVariable infoType: InfoType,
                @RequestBody request: InfoTypeRequest
     ): ResponseEntity<ApiResponse<InfoTypeResponse?>> {
-        return ResponseEntity.ok().body(ApiResponse.successDataResponse(infoTypeService.create(infoType, request)))
+        return ResponseEntity.ok(ApiResponse.successDataResponse(infoTypeService.create(infoType, request)))
     }
 
     // admin
