@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus
 class ApiResponse<T> (
     val status: String,
     val message: String?,
-    val data: T? = null
+    val data: Any?
 ) {
     companion object {
         fun successResponse(): ApiResponse<Nothing> = ApiResponse(
