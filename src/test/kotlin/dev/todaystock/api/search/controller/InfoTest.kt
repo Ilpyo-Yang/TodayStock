@@ -34,7 +34,7 @@ import java.time.LocalDateTime
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Info 관련 API 테스트")
-class InfoTest(
+class InfoTest @Autowired constructor(
     private var mockMvc: MockMvc,
     private var mapper: ObjectMapper
 ) {

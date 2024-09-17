@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("InfoType 관련 API 테스트")
-class InfoTypeTest(
+class InfoTypeTest @Autowired constructor(
     private var mockMvc: MockMvc,
     private var mapper: ObjectMapper
 ) {

@@ -5,6 +5,7 @@ import dev.todaystock.api.collect.dto.CollectRequest
 import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.member.dto.SigninRequest
 import org.junit.jupiter.api.*
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -26,7 +27,7 @@ import java.util.*
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Collect API 테스트")
-class CollectTest(
+class CollectTest @Autowired constructor(
     private var mockMvc: MockMvc,
     private var mapper: ObjectMapper
 ) {

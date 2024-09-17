@@ -6,6 +6,7 @@ import dev.todaystock.api.member.dto.SigninRequest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,7 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "localhost")
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @DisplayName("Search 관련 API 테스트")
-class SearchTest(
+class SearchTest @Autowired constructor(
     private var mockMvc: MockMvc,
     private var mapper: ObjectMapper
 ) {

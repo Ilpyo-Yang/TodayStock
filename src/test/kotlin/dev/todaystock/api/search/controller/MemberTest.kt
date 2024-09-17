@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import dev.todaystock.api.member.dto.MemberRequest
 import dev.todaystock.api.member.dto.SigninRequest
 import org.junit.jupiter.api.*
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -25,7 +26,7 @@ import java.util.*
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Member 관련 API 테스트")
-class MemberTest(
+class MemberTest @Autowired constructor(
     private var mockMvc: MockMvc,
     private var mapper: ObjectMapper
 ) {
