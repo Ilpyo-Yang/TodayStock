@@ -2,7 +2,7 @@
 
 === 회원가입
 
-=== Request
+==== Request
 operation::signup[snippets='http-request,request-body']
 
 ==== Response
@@ -11,7 +11,7 @@ operation::signup[snippets='http-response,response-body']
 
 === 로그인
 
-=== Request
+==== Request
 operation::signin[snippets='http-request,request-body']
 
 ==== Response
@@ -20,7 +20,7 @@ operation::signin[snippets='http-response,response-body']
 
 === 회원삭제 (admin)
 
-=== Request
+==== Request
 operation::deleteMember[snippets='http-request,request-body']
 
 ==== Response

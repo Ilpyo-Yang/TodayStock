@@ -2,7 +2,7 @@
 
 === 정보 생성
 
-=== Request
+==== Request
 operation::createInfo[snippets='http-request,request-body']
 
 ==== Response
@@ -11,7 +11,7 @@ operation::createInfo[snippets='http-response,response-body']
 
 === 정보유형별 정보 조회
 
-=== Request
+==== Request
 operation::findByInfoTypeUuid[snippets='http-request,request-body']
 
 ==== Response
@@ -20,7 +20,7 @@ operation::findByInfoTypeUuid[snippets='http-response,response-body']
 
 === 정보 삭제
 
-=== Request
+==== Request
 operation::deleteInfo[snippets='http-request,request-body']
 
 ==== Response

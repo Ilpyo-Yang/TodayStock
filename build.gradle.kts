@@ -94,9 +94,6 @@ tasks.asciidoctor {
 	inputs.dir(snippetsDir)
 	dependsOn(tasks.test)
 	configurations(asciidoctorExt)
-	sources{
-		include("**/index.adoc")
-	}
 }
 
 val copyDocument = tasks.register<Copy>("copyDocument") {

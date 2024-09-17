@@ -2,7 +2,7 @@
 
 === 뉴스 검색 및 최신 정보 저장
 
-=== Request
+==== Request
 operation::searchInfo[snippets='http-request,request-body']
 
 ==== Response
