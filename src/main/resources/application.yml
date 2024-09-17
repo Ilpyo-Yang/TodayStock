@@ -29,7 +29,7 @@ spring:
     vertex:
       ai:
         gemini:
-          project-id: todaystock
+          project-id: ${GCP_PROJECT}
           location: asia-northeast3
           chat:
             options:
