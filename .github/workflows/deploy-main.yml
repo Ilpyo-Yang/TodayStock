@@ -30,13 +30,13 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_ARTIFACT_REGISTRY_ADMIN_SECRET }}
 
-      - name: set up cloud SDK
+      - name: Set up cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT }}
           version: 'latest'
 
-      - name: docker-auth
+      - name: Docker-auth
         run: gcloud auth configure-docker ${{ secrets.GCP_REGISTRY_REGION }}-docker.pkg.dev --quiet
 
       - name: Build and Push Docker image

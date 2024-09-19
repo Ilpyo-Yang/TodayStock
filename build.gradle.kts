@@ -86,6 +86,7 @@ kotlin {
 }
 
 tasks.test {
+	file(snippetsDir).mkdirs()
 	outputs.dir(snippetsDir)
 	useJUnitPlatform()
 }
