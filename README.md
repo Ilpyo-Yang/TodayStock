@@ -12,14 +12,14 @@
 
 #### 개발기간
 - 2024.08.15 ~ 진행중
-- [초기 개발 진행현황 관리 내역]()
-- [향후 개발 필요사항]()
+- [초기 개발 진행현황 관리 내역](https://github.com/Ilpyo-Yang/TodayStock/issues/5)
+- [향후 개발 필요사항](https://github.com/Ilpyo-Yang/TodayStock/issues/6)
 
 #### 기술스택
 - Kotlin 1.9.24, Spring Boot 3.3.4, JPA, Kotlin JDSL, Junit5, PostgreSQL
 - Github Action, GCP(Compute Engine, Cloud SQL, Vertex AI, VPC), Flyway, Docker
 
-#### [API 명세]()
+#### [API 명세](https://todaystock-doc.tiiny.site/)
 
 ---
 
@@ -34,11 +34,11 @@ Additionally, it serves as an application of my recent learning.
 
 #### Development Period
 - From August 15, 2024 – Ongoing
-- [Initial Development Progress Tracking]()
-- [Future Development Needs]()
+- [Initial Development Progress Tracking](https://github.com/Ilpyo-Yang/TodayStock/issues/5)
+- [Future Development Needs](https://github.com/Ilpyo-Yang/TodayStock/issues/6)
 
 #### Tech Stack
 - Kotlin 1.9.24, Spring Boot 3.3.4, JPA, Kotlin JDSL, JUnit 5, PostgreSQL
 - GitHub Actions, GCP (Compute Engine, Cloud SQL, Vertex AI, VPC), Flyway, Docker
 
-#### [API Documentation]()
+#### [API Documentation](https://todaystock-doc.tiiny.site/)
