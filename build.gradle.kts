@@ -1,7 +1,7 @@
 plugins {
 	val kotlinVersion = "1.9.24"
-	id("org.springframework.boot") version "3.3.2"
-	id("org.asciidoctor.jvm.convert") version "3.3.2"
+	id("org.springframework.boot") version "3.3.4"
+	id("org.asciidoctor.jvm.convert") version "4.0.3"
 	id("io.spring.dependency-management") version "1.1.6"
 	kotlin("jvm") version kotlinVersion
 	kotlin("plugin.spring") version kotlinVersion
@@ -85,26 +85,26 @@ kotlin {
 	jvmToolchain(21)
 }
 
-tasks.test {
-	outputs.dir(snippetsDir)
-	useJUnitPlatform()
-}
-
-tasks.asciidoctor {
-	inputs.dir(snippetsDir)
-	dependsOn(tasks.test)
-	configurations(asciidoctorExt)
-}
-
-val copyDocument = tasks.register<Copy>("copyDocument") {
-	dependsOn(tasks.asciidoctor)
-	doFirst {
-		delete(file("src/main/resources/static/docs"))
-	}
-	from(file("build/docs/asciidoc"))
-	into(file("src/main/resources/static/docs"))
-}
-
-tasks.build {
-	dependsOn(copyDocument)
-}
+//tasks.test {
+//	outputs.dir(snippetsDir)
+//	useJUnitPlatform()
+//}
+//
+//tasks.asciidoctor {
+//	inputs.dir(snippetsDir)
+//	dependsOn(tasks.test)
+//	configurations(asciidoctorExt)
+//}
+//
+//val copyDocument = tasks.register<Copy>("copyDocument") {
+//	dependsOn(tasks.asciidoctor)
+//	doFirst {
+//		delete(file("src/main/resources/static/docs"))
+//	}
+//	from(file("build/docs/asciidoc"))
+//	into(file("src/main/resources/static/docs"))
+//}
+//
+//tasks.build {
+//	dependsOn(copyDocument)
+//}

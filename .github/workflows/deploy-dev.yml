@@ -3,7 +3,7 @@ name: Test and Build Check (dev)
 on:
   push:
     branches:
-      - dev
+      - tmp
 
 jobs:
   build:
