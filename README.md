@@ -4,6 +4,8 @@
 ### 프로젝트 소개
 1인 프로젝트로 주식 정보를 담을 수 있는 collect 백엔드 서비스입니다. 
 
+![프로젝트 구조도](https://private-user-images.githubusercontent.com/67682215/378679675-7f69049e-6ee6-45ab-9cd4-1e33c1ff5eb4.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Mjk1NzE1NTQsIm5iZiI6MTcyOTU3MTI1NCwicGF0aCI6Ii82NzY4MjIxNS8zNzg2Nzk2NzUtN2Y2OTA0OWUtNmVlNi00NWFiLTljZDQtMWUzM2MxZmY1ZWI0LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDEwMjIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQxMDIyVDA0MjczNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTRiZjA0MTAwNTAxNTc0YjU0M2RmYzJlYzNhZGNiN2QxNDQzYzA5ZWU2MThhMWU5MjkyNmNlMGM1MzdhNjllNGYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.OR7qO_NvMs_ZosuIy2ZdAhrVpKn4dABu6xFZxoBGwVk)
+
 #### 프로젝트 개발 목적
 이번에 미주, 국내 주식을 하면서 다양한 정보를 얻고 관리하지 않아 적정 매수, 매도 타이밍을 놓쳤던 경험으로 만들게 되었습니다.  
 그리고 최근 학습 내용을 응용할 수 있는 프로젝트를 만들었습니다.
