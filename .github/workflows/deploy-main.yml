@@ -57,18 +57,18 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_ARTIFACT_REGISTRY_ADMIN_SECRET }}
 
-      - name: Pull and Deploy
-        uses: appleboy/ssh-action@v1.0.3
-        env:
-          ENV: ${{ secrets.ENV }}
-        with:
-          host: ${{ secrets.GCP_SSH_HOST }}
-          username: ${{ secrets.GCP_SSH_USERNAME }}
-          key: ${{ secrets.GCP_SSH_KEY }}
-          port: ${{ secrets.GCP_SSH_PORT }}
-          script_stop: true
-          script: |
-            > .env
-            echo "${{ env.ENV }}" >> .env
-            docker ps -aq | xargs -r docker rm -f
-            docker run -d --restart=always --name todaystock --env-file .env -p 8080:8080 ${{ secrets.GCP_IMAGE_TAG }}
+#      - name: Pull and Deploy
+#        uses: appleboy/ssh-action@v1.0.3
+#        env:
+#          ENV: ${{ secrets.ENV }}
+#        with:
+#          host: ${{ secrets.GCP_SSH_HOST }}
+#          username: ${{ secrets.GCP_SSH_USERNAME }}
+#          key: ${{ secrets.GCP_SSH_KEY }}
+#          port: ${{ secrets.GCP_SSH_PORT }}
+#          script_stop: true
+#          script: |
+#            > .env
+#            echo "${{ env.ENV }}" >> .env
+#            docker ps -aq | xargs -r docker rm -f
+#            docker run -d --restart=always --name todaystock --env-file .env -p 8080:8080 ${{ secrets.GCP_IMAGE_TAG }}
