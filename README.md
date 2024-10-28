@@ -36,7 +36,7 @@ Additionally, it serves as an application of my recent learning.
 
 ### Development Period
 - From August 15, 2024 – Ongoing
-- [Initial Development Progress Tracking](https://github.com/Ilpyo-Yang/TodayStock/issues/5)
+- [Initial Development Progress Tracking](https://github.com/users/Ilpyo-Yang/projects/1)
 - [Future Development Needs](https://github.com/Ilpyo-Yang/TodayStock/issues/6)
 
 ### Tech Stack
