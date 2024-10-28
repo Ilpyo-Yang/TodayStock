@@ -14,8 +14,8 @@
 
 ### 개발기간
 - 2024.08.15 ~ 진행중
+- [현재 개발 진행사항](https://github.com/users/Ilpyo-Yang/projects/1)
 - [초기 개발 진행현황 관리 내역](https://github.com/Ilpyo-Yang/TodayStock/issues/5)
-- [향후 개발 필요사항](https://github.com/Ilpyo-Yang/TodayStock/issues/6)
 
 ### 기술스택
 - Kotlin 1.9.24, Spring Boot 3.3.4, JPA, Kotlin JDSL, Junit5, PostgreSQL
