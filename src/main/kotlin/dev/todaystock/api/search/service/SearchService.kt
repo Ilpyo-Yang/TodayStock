@@ -87,7 +87,7 @@ class SearchService(
                 if(company == null) {
                     val info = searchInfoType(keyword)
                     company = Company(null, keyword, info.tickerCode, info.description, null)
-                    companyRepository.save(company!!)
+                    companyRepository.save(company)
                 }
 
                 items = searchNews(keyword).body?.items!!

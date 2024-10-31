@@ -58,12 +58,11 @@ class SearchTest @Autowired constructor(
     @Test
     @DisplayName("뉴스 검색 및 최신 정보 저장 테스트")
     fun searchInfo() {
-        val content = SearchRequest("삼성전자", "Company")
-
         mockMvc.perform(
             RestDocumentationRequestBuilders.get(searchUrl)
                 .header("Authorization", "Bearer $token")
-                .content(mapper.writeValueAsString(content))
+                .queryParam("keyword", "삼성전자")
+                .queryParam("infoType", "Company")
                 .contentType("application/json")
         ).andDo(
             document("searchInfo")
