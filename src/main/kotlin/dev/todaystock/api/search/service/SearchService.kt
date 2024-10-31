@@ -78,16 +78,13 @@ class SearchService(
     }
 
     @Transactional
-    // search keyword
-    fun searchKeyword(searchRequest: SearchRequest): List<MarkerInfo> {
-        val keyword: String = searchRequest.keyword
-        val infoType: InfoType = searchRequest.infoType
+    fun searchKeyword(keyword: String, infoType: InfoType): List<MarkerInfo> {
         val items: List<NewsItem?>
 
         when(infoType) {
             InfoType.Company -> {
                 var company: Company? = companyRepository.findByName(keyword)
-                company?: {
+                if(company == null) {
                     val info = searchInfoType(keyword)
                     company = Company(null, keyword, info.tickerCode, info.description, null)
                     companyRepository.save(company!!)

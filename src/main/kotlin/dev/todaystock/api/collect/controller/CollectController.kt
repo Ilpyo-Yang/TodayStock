@@ -37,7 +37,7 @@ class CollectController(
 
     // todo user check needed
     @DeleteMapping
-    fun delete(@RequestBody(required = true) uuid: UUID): ResponseEntity<ApiResponse<out HttpStatus>> {
+    fun delete(@RequestParam(required = true) uuid: UUID): ResponseEntity<ApiResponse<out HttpStatus>> {
         if(collectService.delete(uuid)) {
             return ResponseEntity.ok(ApiResponse.successResponse())
         }
