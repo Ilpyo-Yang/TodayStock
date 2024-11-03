@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
 class CustomExceptionHandler {
-    @ExceptionHandler(MethodArgumentNotValidException::class)
-    protected fun handleValidationExceptions(ex: MethodArgumentNotValidException): ResponseEntity<ApiResponse<Map<String, String>>> {
-        val errors = mutableMapOf<String, String>()
-        ex.bindingResult.allErrors.forEach { error ->
-            val fieldName = (error as FieldError).field
-            val errorMessage = error.getDefaultMessage()
-            errors[fieldName] = errorMessage ?: "Not Exception Message"
-        }
-        return ResponseEntity(ApiResponse(
-            ErrorCode.DefaultError.name,
-            ErrorCode.DefaultError.message,
-            errors
-        ), HttpStatus.BAD_REQUEST)
-    }
+//    @ExceptionHandler(MethodArgumentNotValidException::class)
+//    protected fun handleValidationExceptions(ex: MethodArgumentNotValidException): ResponseEntity<ApiResponse<Map<String, String>>> {
+//        val errors = mutableMapOf<String, String>()
+//        ex.bindingResult.allErrors.forEach { error ->
+//            val fieldName = (error as FieldError).field
+//            val errorMessage = error.getDefaultMessage()
+//            errors[fieldName] = errorMessage ?: "Not Exception Message"
+//        }
+//        return ResponseEntity(ApiResponse(
+//            ErrorCode.DefaultError.name,
+//            ErrorCode.DefaultError.message,
+//            errors
+//        ), HttpStatus.BAD_REQUEST)
+//    }
 
     @ExceptionHandler(InvalidRequestException::class)
     protected fun invalidRequestException(ex: InvalidRequestException): ResponseEntity<ApiResponse<Map<String, String>>> {
