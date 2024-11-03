@@ -4,7 +4,7 @@
 ## 프로젝트 소개
 1인 프로젝트로 주식 정보를 담을 수 있는 collect 백엔드 서비스입니다. 
 
-![image](https://github.com/user-attachments/assets/d4985625-748a-4855-a17d-bd77b70d5ecc)
+![Group 67](https://github.com/user-attachments/assets/955d2363-0f91-44d9-bbeb-5bcefdc5cc99)
 
 
 ### 프로젝트 개발 목적
