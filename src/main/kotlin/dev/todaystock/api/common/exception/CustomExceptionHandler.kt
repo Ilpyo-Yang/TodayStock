@@ -56,13 +56,13 @@ class CustomExceptionHandler {
         ), HttpStatus.BAD_REQUEST)
     }
 
-    @ExceptionHandler(Exception::class)
-    protected fun defaultException(ex: Exception): ResponseEntity<ApiResponse<Map<String, String>>> {
-        val errors = mapOf(" " to (ex.message ?: "Not Exception Message"))
-        return ResponseEntity(ApiResponse(
-            ErrorCode.DefaultError.name,
-            ErrorCode.DefaultError.message,
-            errors
-        ), HttpStatus.BAD_REQUEST)
-    }
+//    @ExceptionHandler(Exception::class)
+//    protected fun defaultException(ex: Exception): ResponseEntity<ApiResponse<Map<String, String>>> {
+//        val errors = mapOf(" " to (ex.message ?: "Not Exception Message"))
+//        return ResponseEntity(ApiResponse(
+//            ErrorCode.DefaultError.name,
+//            ErrorCode.DefaultError.message,
+//            errors
+//        ), HttpStatus.BAD_REQUEST)
+//    }
 }
