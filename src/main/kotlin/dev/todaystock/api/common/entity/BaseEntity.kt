@@ -9,10 +9,14 @@ import java.time.LocalDateTime
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-open class BaseEntity {
+open class BaseEntity (
     @CreatedDate
-    var createdDate: LocalDateTime? = null
+    var createdDate: LocalDateTime? = null,
     @LastModifiedDate
-    var modifiedDate: LocalDateTime? = null
-    var deletedDate: LocalDateTime? = null
+    var modifiedDate: LocalDateTime? = null,
+    var _deletedDate: LocalDateTime? = null
+) {
+    var deletedDate: LocalDateTime?
+        get() = _deletedDate
+        set(now: LocalDateTime?) { _deletedDate = LocalDateTime.now() }
 }

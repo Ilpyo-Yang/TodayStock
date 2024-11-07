@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.crypto.factory.PasswordEncoderFactories
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
@@ -25,18 +25,16 @@ class SecurityConfig(
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
-            .authorizeHttpRequests {
-                it.requestMatchers("/v1/member/signup", "/v1/member/signin").permitAll()
-                    .anyRequest().permitAll()
-            }
             .addFilterBefore(
                 AuthenticationFilter(tokenProvider),
                 UsernamePasswordAuthenticationFilter::class.java
             )
+            .authorizeHttpRequests {
+                it.requestMatchers("/v1/member/signup", "/v1/member/signin").permitAll()
+            }
         return http.build()
     }
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder =
-        PasswordEncoderFactories.createDelegatingPasswordEncoder()
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 }

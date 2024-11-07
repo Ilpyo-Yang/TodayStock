@@ -22,7 +22,7 @@ class MemberRequest(
     @field:NotBlank(message = "Password name cannot be empty")
     @field:Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[!@#\\\$%\\^&\\*])(?=\\S+\$).{8,}\$",
         message = "비밀번호는 최소 8자리 이상이며, 숫자, 문자(대문자, 소문자 구분하지 않음), 특수문자 각각 최소 하나 이상을 포함하고, 공백이 없어야 합니다.")
-    private val _password: String,
+    private var _password: String,
 
     @JsonProperty("nickname")
     private val _nickname: String?,
@@ -42,8 +42,9 @@ class MemberRequest(
         get() = _uuid?.let { UUID.fromString(it) }
     val email: String
         get() = _email
-    val password: String
+    var password: String
         get() = _password
+        set(newPassword: String) { _password = newPassword }
     val nickname: String
         get() = _nickname?: randomUserNickname()
     val name: String
