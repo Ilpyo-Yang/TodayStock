@@ -4,13 +4,14 @@ import dev.todaystock.api.common.security.AuthenticationFilter
 import dev.todaystock.api.common.security.TokenProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 
 @Configuration
 @EnableWebSecurity
@@ -25,12 +26,13 @@ class SecurityConfig(
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
-            .addFilterBefore(
+            .addFilterAfter(
                 AuthenticationFilter(tokenProvider),
-                UsernamePasswordAuthenticationFilter::class.java
+                BasicAuthenticationFilter::class.java
             )
             .authorizeHttpRequests {
-                it.requestMatchers("/v1/member/signup", "/v1/member/signin").permitAll()
+                it.requestMatchers(HttpMethod.DELETE, "/v1/member/delete").authenticated()
+                    .anyRequest().permitAll()
             }
         return http.build()
     }

@@ -1,12 +1,12 @@
 package dev.todaystock.api.common.security
 
 import dev.todaystock.api.common.dto.TokenDto
+import dev.todaystock.api.common.exception.InvalidTokenException
 import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SecurityException
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.core.env.Environment
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
@@ -58,17 +58,28 @@ class TokenProvider() {
             getClaims(token)
             return true
         } catch (e: Exception) {
-            when (e) {
-                is SecurityException -> {}  // Invalid JWT Token
-                is MalformedJwtException -> {}  // Invalid JWT Token
-                is ExpiredJwtException -> {}    // Expired JWT Token
-                is UnsupportedJwtException -> {}
-                is IllegalArgumentException -> {}
-                else -> {}  // else
-            }
             println(e.message)
+            when (e) {
+                is SecurityException -> {
+                    throw InvalidTokenException("SecurityException, Invalid JWT Token")
+                }
+                is MalformedJwtException -> {
+                    throw InvalidTokenException("Malformed JWT Token")
+                }
+                is ExpiredJwtException -> {
+                    throw InvalidTokenException("Expired JWT Token")
+                }
+                is UnsupportedJwtException -> {
+                    throw InvalidTokenException("Unsupported JWT Token")
+                }
+                is IllegalArgumentException -> {
+                    throw InvalidTokenException("Unsupported JWT Token")
+                }
+                else -> {
+                    throw InvalidTokenException("Invalid JWT Token")
+                }
+            }
         }
-        return false
     }
 
     private fun getClaims(token: String): Claims =

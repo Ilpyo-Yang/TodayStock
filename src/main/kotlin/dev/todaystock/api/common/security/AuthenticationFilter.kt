@@ -1,27 +1,28 @@
 package dev.todaystock.api.common.security
 
 import jakarta.servlet.FilterChain
+import jakarta.servlet.ServletRequest
+import jakarta.servlet.ServletResponse
 import jakarta.servlet.http.HttpServletRequest
-import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.util.StringUtils
-import org.springframework.web.filter.OncePerRequestFilter
+import org.springframework.web.filter.GenericFilterBean
 
 class AuthenticationFilter(
     private val tokenProvider: TokenProvider
-): OncePerRequestFilter() {
+): GenericFilterBean() {
 
-    override fun doFilterInternal(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        filterChain: FilterChain
+    override fun doFilter(
+        request: ServletRequest?,
+        response: ServletResponse?,
+        filterChain: FilterChain?
     ) {
-        val token = resolveToken(request as HttpServletRequest)
+        val token = request?.let { resolveToken(request as HttpServletRequest) }
         if (token != null && tokenProvider.validateToken(token)) {
             val authentication = tokenProvider.getAuthentication(token)
             SecurityContextHolder.getContext().authentication = authentication
         }
-        filterChain.doFilter(request, response)
+        filterChain?.doFilter(request, response)
     }
 
     private fun resolveToken(request: HttpServletRequest): String? {
