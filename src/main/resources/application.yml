@@ -65,5 +65,4 @@ logging:
 
 server:
   tomcat:
-    keep-alive-timeout: 600000
-    connection-timeout: 620000
+    keep-alive-timeout: 620000
