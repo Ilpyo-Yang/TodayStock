@@ -1,6 +1,6 @@
 package dev.todaystock.api.common.exception
 
 class InvalidRequestException(
-    val fieldName: String = "",
-    message: String = "Invalid Input"
+    override val message: String = "",
+    val fieldName: String = "Invalid Input"
 ) : RuntimeException(message)

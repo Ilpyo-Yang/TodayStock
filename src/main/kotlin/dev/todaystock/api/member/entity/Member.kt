@@ -2,7 +2,6 @@ package dev.todaystock.api.member.entity
 
 import dev.todaystock.api.common.entity.BaseEntity
 import jakarta.persistence.*
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.util.*
 
 @Entity

@@ -10,19 +10,19 @@ import org.springframework.web.filter.GenericFilterBean
 
 class AuthenticationFilter(
     private val tokenProvider: TokenProvider
-) : GenericFilterBean() {
+): GenericFilterBean() {
 
     override fun doFilter(
         request: ServletRequest?,
         response: ServletResponse?,
-        chain: FilterChain?
+        filterChain: FilterChain?
     ) {
-        val token = resolveToken(request as HttpServletRequest)
+        val token = request?.let { resolveToken(request as HttpServletRequest) }
         if (token != null && tokenProvider.validateToken(token)) {
             val authentication = tokenProvider.getAuthentication(token)
             SecurityContextHolder.getContext().authentication = authentication
         }
-        chain?.doFilter(request, response)
+        filterChain?.doFilter(request, response)
     }
 
     private fun resolveToken(request: HttpServletRequest): String? {

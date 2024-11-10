@@ -46,6 +46,16 @@ class CustomExceptionHandler {
         ), HttpStatus.BAD_REQUEST)
     }
 
+    @ExceptionHandler(NoSuchElementException::class)
+    protected fun noSuchElementException(ex: NoSuchElementException): ResponseEntity<ApiResponse<Map<String, String>>> {
+        val errors = mapOf(ex.fieldName to (ex.message ?: "Not Exception Message"))
+        return ResponseEntity(ApiResponse(
+            ErrorCode.NotFound.name,
+            ErrorCode.NotFound.message,
+            errors
+        ), HttpStatus.NOT_FOUND)
+    }
+
     @ExceptionHandler(CustomRuntimeException::class)
     protected fun customRuntimeException(ex: CustomRuntimeException): ResponseEntity<ApiResponse<Map<String, String>>> {
         val errors = mapOf("RuntimeError" to "Service not available: ${ex.message}")

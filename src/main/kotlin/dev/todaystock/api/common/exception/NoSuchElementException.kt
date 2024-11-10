@@ -1,6 +1,6 @@
 package dev.todaystock.api.common.exception
 
-class CustomRuntimeException(
+class NoSuchElementException(
     override val message: String = "",
-    val fieldName: String = "Runtime Error",
+    val fieldName: String = "Element Not Found"
 ) : RuntimeException(message)

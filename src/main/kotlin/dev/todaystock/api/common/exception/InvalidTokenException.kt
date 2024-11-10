@@ -1,6 +1,6 @@
 package dev.todaystock.api.common.exception
 
-class CustomRuntimeException(
+class InvalidTokenException(
     override val message: String = "",
-    val fieldName: String = "Runtime Error",
+    val fieldName: String = "Invalid Token"
 ) : RuntimeException(message)
