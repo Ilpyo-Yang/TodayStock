@@ -5,6 +5,8 @@ spring:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 100
   jpa:
     properties:
       hibernate:
@@ -66,3 +68,6 @@ logging:
 server:
   tomcat:
     keep-alive-timeout: 620000
+    threads:
+      max: 100
+      min-spare: 10
