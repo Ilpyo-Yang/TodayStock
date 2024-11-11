@@ -21,8 +21,7 @@ class CollectService(
             ).from(
                 entity(Collect::class)
             ).whereAnd(
-                path(Collect::memberUuid).eq(memberUuid),
-                path(Collect::deletedDate).isNull()
+                path(Collect::memberUuid).eq(memberUuid)
             ).groupBy(
                 path(Collect::type)
             )
@@ -37,8 +36,7 @@ class CollectService(
                 entity(Collect::class)
             ).whereAnd(
                 path(Collect::memberUuid).eq(memberUuid),
-                path(Collect::type).eq(infoType.name),
-                path(Collect::deletedDate).isNull()
+                path(Collect::type).eq(infoType.name)
             )
         }
     }
