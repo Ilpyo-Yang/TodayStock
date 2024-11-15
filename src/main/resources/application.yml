@@ -62,3 +62,16 @@ logging:
       hibernate:
         SQL: debug
         type.descriptor.sql: trace
+
+server:
+  tomcat:
+    keep-alive-timeout: 620000
+    connection-timeout: 620000
+
+springdoc:
+  swagger-ui:
+    path: /api
+    groups-order: DESC
+    tags-sorter: alpha
+  paths-to-match:
+    - /v1/**
