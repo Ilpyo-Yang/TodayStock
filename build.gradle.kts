@@ -47,6 +47,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web:3.3.2")
 	implementation("org.springframework.boot:spring-boot-starter-validation:3.3.2")
 	implementation("org.apache.httpcomponents.client5:httpclient5:5.3.1")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.2")
 	implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.24")

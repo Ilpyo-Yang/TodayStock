@@ -20,9 +20,7 @@
 
 ### 기술스택
 - Kotlin 1.9.24, Spring Boot 3.3.4, JPA, Kotlin JDSL, Junit5, PostgreSQL
-- Github Action, GCP(Compute Engine, Cloud SQL, Vertex AI, Artifact Registry, VPC), Flyway, Docker, Spring Rest API
-
-#### [API 명세](https://todaystock-doc.tiiny.site/)
+- Github Action, GCP(Compute Engine, Cloud SQL, Vertex AI, Artifact Registry, VPC), Flyway, Docker, Spring Rest API, Swagger
 
 ---
 
@@ -42,6 +40,4 @@ Additionally, it serves as an application of my recent learning.
 
 ### Tech Stack
 - Kotlin 1.9.24, Spring Boot 3.3.4, JPA, Kotlin JDSL, JUnit 5, PostgreSQL
-- GitHub Actions, GCP (Compute Engine, Cloud SQL, Vertex AI, Artifact Registry, VPC), Flyway, Docker, Spring Rest API
-
-### [API Documentation](https://todaystock-doc.tiiny.site/)
+- GitHub Actions, GCP (Compute Engine, Cloud SQL, Vertex AI, Artifact Registry, VPC), Flyway, Docker, Spring Rest API, Swagger
