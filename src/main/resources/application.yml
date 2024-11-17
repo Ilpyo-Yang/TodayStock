@@ -6,7 +6,9 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     hikari:
-      maximum-pool-size: 100
+      maximum-pool-size: 25
+      idle-timeout: 620000
+      max-lifetime: 1800000
   jpa:
     properties:
       hibernate:
@@ -69,7 +71,7 @@ server:
   tomcat:
     keep-alive-timeout: 620000
     threads:
-      max: 100
+      max: 50
       min-spare: 10
 
 springdoc:
