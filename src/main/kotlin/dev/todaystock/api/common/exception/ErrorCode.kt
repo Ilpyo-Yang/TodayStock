@@ -13,6 +13,7 @@ enum class ErrorCode(
     NotDeleted("E4090", "삭제되지 않았습니다.", HttpStatus.INTERNAL_SERVER_ERROR),
 
     // security
+    InValidToken("E4100", "유효하지 않은 토큰입니다.", HttpStatus.UNAUTHORIZED),
     InValidRequest("E4200", "올바르지 않은 요청값입니다.", HttpStatus.BAD_REQUEST),
     BadCredentials("E4210", "아이디 혹은 비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST),
     BadCredential("E4211", "비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST),

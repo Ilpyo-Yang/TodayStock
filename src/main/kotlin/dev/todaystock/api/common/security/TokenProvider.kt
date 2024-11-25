@@ -58,27 +58,15 @@ class TokenProvider() {
             getClaims(token)
             return true
         } catch (e: Exception) {
-            println(e.message)
-            when (e) {
-                is SecurityException -> {
-                    throw InvalidTokenException("SecurityException, Invalid JWT Token")
-                }
-                is MalformedJwtException -> {
-                    throw InvalidTokenException("Malformed JWT Token")
-                }
-                is ExpiredJwtException -> {
-                    throw InvalidTokenException("Expired JWT Token")
-                }
-                is UnsupportedJwtException -> {
-                    throw InvalidTokenException("Unsupported JWT Token")
-                }
-                is IllegalArgumentException -> {
-                    throw InvalidTokenException("Unsupported JWT Token")
-                }
-                else -> {
-                    throw InvalidTokenException("Invalid JWT Token")
-                }
+            val msg = when (e) {
+                is SecurityException -> "SecurityException, Invalid JWT Token"
+                is MalformedJwtException -> "Malformed JWT Token"
+                is ExpiredJwtException -> "Expired JWT Token"
+                is UnsupportedJwtException -> "Unsupported JWT Token"
+                is IllegalArgumentException -> "Unsupported JWT Token"
+                else -> "Invalid JWT Token"
             }
+            throw InvalidTokenException(msg)
         }
     }
 

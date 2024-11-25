@@ -1,6 +1,7 @@
 package dev.todaystock.api.common.config
 
 import dev.todaystock.api.common.security.AuthenticationFilter
+import dev.todaystock.api.common.security.CustomAuthenticationEntryPoint
 import dev.todaystock.api.common.security.TokenProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,7 +17,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val tokenProvider: TokenProvider
+    private val tokenProvider: TokenProvider,
+    private val customAuthenticationEntryPoint: CustomAuthenticationEntryPoint
 ){
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
@@ -26,14 +28,18 @@ class SecurityConfig(
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
+            .authorizeHttpRequests {
+                it.requestMatchers("/v1/collect/**", "/v1/search", "/v1/member/delete").authenticated()
+                    .anyRequest().permitAll()
+            }
             .addFilterAfter(
                 AuthenticationFilter(tokenProvider),
                 BasicAuthenticationFilter::class.java
             )
-            .authorizeHttpRequests {
-                it.requestMatchers(HttpMethod.DELETE, "/v1/member/delete").authenticated()
-                    .anyRequest().permitAll()
+            .httpBasic {
+                it.authenticationEntryPoint(customAuthenticationEntryPoint)
             }
+
         return http.build()
     }
 

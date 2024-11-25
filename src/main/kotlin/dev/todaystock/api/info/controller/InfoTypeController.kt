@@ -4,6 +4,7 @@ import dev.todaystock.api.common.dto.ApiResponse
 import dev.todaystock.api.common.exception.ErrorCode
 import dev.todaystock.api.info.dto.InfoTypeRequest
 import dev.todaystock.api.info.dto.InfoTypeResponse
+import dev.todaystock.api.info.dto.UuidDto
 import dev.todaystock.api.info.entity.InfoType
 import dev.todaystock.api.info.service.InfoTypeService
 import io.swagger.v3.oas.annotations.Operation
@@ -36,9 +37,9 @@ class InfoTypeController(
     @DeleteMapping
     @Operation(summary = "정보 유형 삭제", description = "정보 유형 삭제 API")
     fun delete(@PathVariable infoType: InfoType,
-               @RequestBody(required = true) uuid: UUID
+               @RequestBody(required = true) uuidDto: UuidDto
     ): ResponseEntity<ApiResponse<out HttpStatus>> {
-        if(infoTypeService.delete(infoType, uuid)) {
+        if(infoTypeService.delete(infoType, uuidDto.uuid)) {
             return ResponseEntity.ok(ApiResponse.successResponse())
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.failedResponse(ErrorCode.NotDeleted))

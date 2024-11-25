@@ -17,10 +17,13 @@ class AuthenticationFilter(
         response: ServletResponse?,
         filterChain: FilterChain?
     ) {
-        val token = request?.let { resolveToken(request as HttpServletRequest) }
-        if (token != null && tokenProvider.validateToken(token)) {
-            val authentication = tokenProvider.getAuthentication(token)
-            SecurityContextHolder.getContext().authentication = authentication
+        val permitAllPaths = listOf("/v1/collect/**", "/v1/search", "/v1/member/delete")
+        if (permitAllPaths.contains((request as HttpServletRequest).requestURI)) {
+            val token = resolveToken(request as HttpServletRequest)
+            if (token != null && tokenProvider.validateToken(token)) {
+                val authentication = tokenProvider.getAuthentication(token)
+                SecurityContextHolder.getContext().authentication = authentication
+            }
         }
         filterChain?.doFilter(request, response)
     }
