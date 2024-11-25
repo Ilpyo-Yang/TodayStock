@@ -5,6 +5,7 @@ import jakarta.servlet.ServletRequest
 import jakarta.servlet.ServletResponse
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.util.AntPathMatcher
 import org.springframework.util.StringUtils
 import org.springframework.web.filter.GenericFilterBean
 
@@ -18,7 +19,8 @@ class AuthenticationFilter(
         filterChain: FilterChain?
     ) {
         val permitAllPaths = listOf("/v1/collect/**", "/v1/search", "/v1/member/delete")
-        if (permitAllPaths.contains((request as HttpServletRequest).requestURI)) {
+        val path = (request as HttpServletRequest).requestURI
+        if (permitAllPaths.any { AntPathMatcher().match(it, path) }) {
             val token = resolveToken(request as HttpServletRequest)
             if (token != null && tokenProvider.validateToken(token)) {
                 val authentication = tokenProvider.getAuthentication(token)
