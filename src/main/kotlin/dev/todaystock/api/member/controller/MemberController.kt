@@ -27,13 +27,15 @@ class MemberController(
 ) {
     @PostMapping("/signup")
     @Operation(summary = "회원가입", description = "회원가입 API")
-    fun signup(@RequestBody(required = true) @Valid memberRequest: MemberRequest): ResponseEntity<ApiResponse<MemberResponse>> {
+    fun signup(@RequestBody(required = true) @Valid memberRequest: MemberRequest
+    ): ResponseEntity<ApiResponse<MemberResponse>> {
         return ResponseEntity.ok(ApiResponse.successDataResponse(memberService.signup(memberRequest)))
     }
 
     @PostMapping("/signin")
     @Operation(summary = "로그인", description = "로그인 API")
-    fun signin(@RequestBody(required = true) @Valid signinRequest: SigninRequest): ResponseEntity<ApiResponse<TokenDto>> {
+    fun signin(@RequestBody(required = true) @Valid signinRequest: SigninRequest
+    ): ResponseEntity<ApiResponse<TokenDto>> {
         return ResponseEntity.ok(ApiResponse.successDataResponse(memberService.signin(signinRequest)))
     }
 

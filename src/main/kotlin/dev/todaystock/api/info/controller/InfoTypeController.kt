@@ -21,7 +21,8 @@ class InfoTypeController(
 ) {
     @GetMapping
     @Operation(summary = "정보 유형 검색", description = "정보 유형 검색 API")
-    fun findByInfoType(@PathVariable infoType: InfoType): ResponseEntity<ApiResponse<List<InfoTypeResponse?>>> {
+    fun findByInfoType(@PathVariable infoType: InfoType
+    ): ResponseEntity<ApiResponse<List<InfoTypeResponse?>>> {
         return ResponseEntity.ok(ApiResponse.successDataResponse(infoTypeService.findAll(infoType)))
     }
 

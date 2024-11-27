@@ -20,6 +20,7 @@ class AuthenticationFilter(
         val token = request?.let { resolveToken(request as HttpServletRequest) }
         if (token != null && tokenProvider.validateToken(token)) {
             val authentication = tokenProvider.getAuthentication(token)
+            // todo
             SecurityContextHolder.getContext().authentication = authentication
         }
         filterChain?.doFilter(request, response)

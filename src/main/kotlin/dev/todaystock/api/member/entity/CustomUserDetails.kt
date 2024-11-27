@@ -26,4 +26,7 @@ class CustomUserDetails(
         return email
     }
 
+    fun getUuid(): String {
+        return uuid
+    }
 }
