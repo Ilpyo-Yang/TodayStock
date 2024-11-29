@@ -22,6 +22,8 @@
 - Kotlin 1.9.24, Spring Boot 3.3.4, JPA, Kotlin JDSL, Junit5, PostgreSQL
 - Github Action, GCP(Compute Engine, Cloud SQL, Vertex AI, Artifact Registry, VPC), Flyway, Docker, Spring Rest API, Swagger
 
+#### [API 명세](https://documenter.getpostman.com/view/25653188/2sAY51A1Y7)
+
 ---
 
 ## Project Introduction
@@ -37,6 +39,8 @@ Additionally, it serves as an application of my recent learning.
 - From August 15, 2024 – Ongoing
 - [Initial Development Progress Tracking](https://github.com/users/Ilpyo-Yang/projects/1)
 - [Future Development Needs](https://github.com/Ilpyo-Yang/TodayStock/issues/6)
+
+#### [API Specification](https://documenter.getpostman.com/view/25653188/2sAY51A1Y7)
 
 ### Tech Stack
 - Kotlin 1.9.24, Spring Boot 3.3.4, JPA, Kotlin JDSL, JUnit 5, PostgreSQL
